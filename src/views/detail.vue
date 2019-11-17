@@ -1,6 +1,6 @@
 <template>
   <div class="detail">
-      aaa
+     你大爷
   </div>
 </template>
 
