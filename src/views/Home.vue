@@ -1,8 +1,6 @@
 <template>
   <div class="hotel">
-    <div class="topBar">
-      我想去旅行
-    </div>
+    <div class="topBar">我想去旅行</div>
 
     <!-- 轮播图 -->
     <div class="swipper">
@@ -15,19 +13,11 @@
     <!-- 中部选择框 -->
     <div class="check">
       <van-cell-group>
-        <van-field
-          v-model="hotelName"
-          placeholder="酒店名称"
-          left-icon="hotel-o"
-        />
+        <van-field v-model="hotelName" placeholder="酒店名称" left-icon="hotel-o" />
       </van-cell-group>
 
       <van-cell-group>
-        <van-field
-          v-model="cityName"
-          placeholder="请输入城市名"
-          left-icon="location-o"
-        />
+        <van-field v-model="cityName" placeholder="请输入城市名" left-icon="location-o" />
       </van-cell-group>
 
       <van-cell-group>
@@ -38,17 +28,13 @@
           @click="showPopupIn"
           :value="valueTimeLiveIn"
         />
-        <van-popup
-          v-model="showIn"
-          round
-          position="bottom"
-          :style="{ height: '60%' }"
-        >
+        <van-popup v-model="showIn" round position="bottom" :style="{ height: '60%' }">
           <van-datetime-picker
             type="date"
             @confirm="confirmLiveIn"
             @cancel="cancelLiveIn"
             :min-date="startTime"
+            :formatter="formatter"
           />
         </van-popup>
       </van-cell-group>
@@ -60,17 +46,13 @@
           @click="showPopupOut"
           :value="valueTimeLiveOut"
         />
-        <van-popup
-          v-model="showOut"
-          round
-          position="bottom"
-          :style="{ height: '60%' }"
-        >
+        <van-popup v-model="showOut" round position="bottom" :style="{ height: '60%' }">
           <van-datetime-picker
             type="date"
             @confirm="confirmLiveOut"
             @cancel="cancelLiveIn"
-            :min-date="startTime"
+            :min-date="endTime"
+            :formatter="formatter"
           />
         </van-popup>
       </van-cell-group>
@@ -80,108 +62,109 @@
         color="linear-gradient(to right, #4bb0ff, #6149f6)"
         size="large"
         @click="searchInfo"
-        >搜索</van-button
-      >
+      >搜索</van-button>
     </div>
     <!-- 数据列表 -->
     <div class="list">
-      <van-list
-        v-model="loading"
-        :finished="finished"
-        finished-text="没有更多了"
-      >
+      <van-list v-model="loading" :finished="finished" finished-text="没有更多了">
         <van-cell v-for="(item, index) in 8" :key="index" @click="toDetail">
           <img
             src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1546595911,624006547&fm=26&gp=0.jpg"
             alt
           />
-          <div class="bold">龙浦大酒店</div>
-          <div class="address">
-            杭州 &nbsp;&nbsp;富阳区&nbsp;&nbsp;龙浦街道196号
+          <div class="left">
+            <div class="bold">龙浦大酒店</div>
+            <div class="address">杭州 &nbsp;&nbsp;富阳区&nbsp;&nbsp;龙浦街道196号</div>
+            <div class="address">二星级及以下/经济</div>
           </div>
-          <div class="address">二星级及以下/经济</div>
+          <div class="right">
+            <span>￥ 560起</span>
+          </div>
         </van-cell>
       </van-list>
     </div>
-
-    <!-- <div class="list">
-      <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad">
-      </van-list>
-    </div>-->
   </div>
 </template>
 
 <script>
-var moment = require('moment')
+var moment = require("moment");
 export default {
   data() {
     return {
       imgList: [
-        'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1042650240,4209338409&fm=26&gp=0.jpg',
-        'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1616050083,3744682081&fm=26&gp=0.jpg',
-        'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2681834925,3412885945&fm=26&gp=0.jpg'
+        "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1042650240,4209338409&fm=26&gp=0.jpg",
+        "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1616050083,3744682081&fm=26&gp=0.jpg",
+        "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2681834925,3412885945&fm=26&gp=0.jpg"
       ],
-      hotelName: '',
-      cityName: '',
+      hotelName: "",
+      cityName: "",
       loading: false,
       finished: false,
       showIn: false,
       showOut: false,
-      valueTimeLiveOut: '',
-      valueTimeLiveIn: '',
-      // currentTime: new Date(), // 开始时间不能超过当前时间
-      startTime: new Date() // 开始时间
-    }
+      valueTimeLiveIn: "",
+      valueTimeLiveOut: "",
+      startTime: new Date(), // 开始时间
+      endTime: new Date() // 结束时间
+    };
   },
 
   methods: {
     // 点击跳转到酒店详情页面
     toDetail() {
-      this.$router.push('./detail')
+      this.$router.push("./detail");
     },
     // 点击输入框事件
     showPopupIn() {
-      this.showIn = true
+      this.showIn = true;
     },
     showPopupOut() {
-      this.showOut = true
+      this.showOut = true;
     },
     // 点击确认事件
     confirmLiveIn(value) {
       // console.log(1)
-      this.valueTimeLiveIn = moment(value).format('YYYY-MM-DD')
-      this.showIn = false
+      this.valueTimeLiveIn = moment(value).format("YYYY-MM-DD");
+      this.showIn = false;
     },
     confirmLiveOut(value) {
       // console.log(2)
-      this.valueTimeLiveOut = moment(value).format('YYYY-MM-DD')
-      this.showOut = false
+      this.valueTimeLiveOut = moment(value).format("YYYY-MM-DD");
+      this.showOut = false;
     },
     cancelLiveIn() {
-      this.showIn = false
-      this.showOut = false
+      this.showIn = false;
+      this.showOut = false;
     },
-    // 点击搜索按钮发送请求获取对应数据
-    searchInfo(){
-      console.log(111);
-      
+    // 点击搜索按钮去到搜索页面并发送请求获取数据
+    searchInfo() {
+      this.$router.push("./search")
+    },
+    formatter(type, value) {
+      // 格式化选择器日期
+      if (type === "year") {
+        return `${value}年`;
+      } else if (type === "month") {
+        return `${value}月`;
+      }
+      return value;
     }
-  },
+  }
   // onLoad() {
   //   // 异步更新数据
   //   setTimeout(() => {
-  //     for (let i = 0; i < 10; i++) {
-  //       this.list.push(this.list.length + 1)
-  //     }
+  //     // for (let i = 0; i < 10; i++) {
+  //     //   this.list.push(this.list.length + 1)
+  //     // }
   //     // 加载状态结束
   //     this.loading = false
   //     // 数据全部加载完成
-  //     if (this.list.length >= 40) {
+  //     if (this.list.length >= 列表的总长度) {
   //       this.finished = true
   //     }
   //   }, 500)
   // }
-}
+};
 </script>
 
 <style lang="less" scoped>
@@ -250,7 +233,7 @@ export default {
 .list {
   .van-cell {
     width: 100%;
-    height: 280 * @appSize;
+    height: 300 * @appSize;
     box-shadow: 0 * @appSize 15 * @appSize 10 * @appSize -10 * @appSize #ccc;
     margin-bottom: 10 * @appSize;
 
@@ -259,15 +242,30 @@ export default {
       height: 180 * @appSize;
       border-radius: 10 * @appSize;
     }
-    .bold {
-      font-weight: bold;
-      font-size: 18 * @appSize;
-      color: #000;
+    .left {
+      // flex: 1;
+      float: left;
+      width: 250 * @appSize;
+      .bold {
+        font-weight: bold;
+        font-size: 16 * @appSize;
+        color: #000;
+      }
+      .address {
+        color: #666;
+        font-size: 14 * @appSize;
+      }
     }
-    .address {
-      margin-bottom: 5 * @appSize;
-      color: #666;
-      font-size: 14 * @appSize;
+    .right{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 30px;
+      span{
+        color: red;
+        font-size: 18 * @appSize;
+        font-weight: bold;
+      }
     }
   }
 }

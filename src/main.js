@@ -43,6 +43,21 @@ Vue.use(Overlay);
 import { Popup } from 'vant';
 Vue.use(Popup);
 
+import { NoticeBar } from 'vant';
+Vue.use(NoticeBar);
+
+import { Dialog } from 'vant';
+Vue.use(Dialog);
+
+import { Panel } from 'vant';
+Vue.use(Panel);
+
+import { Collapse, CollapseItem } from 'vant';
+Vue.use(Collapse).use(CollapseItem);
+
+import { Search } from 'vant';
+Vue.use(Search);
+
 Vue.config.productionTip = false
 
 new Vue({
