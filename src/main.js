@@ -67,6 +67,7 @@ Vue.use(NavBar);
 import { Divider } from 'vant';
 Vue.use(Divider);
 
+
 Vue.config.productionTip = false
 
 new Vue({

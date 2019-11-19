@@ -13,81 +13,26 @@
     <!-- 中部选择框 -->
     <div class="check">
       <van-cell-group>
-        <van-field
-          v-model="hotelName"
-          placeholder="酒店名称"
-          left-icon="hotel-o"
-        />
+        <van-field v-model="hotelName" placeholder="酒店名称" left-icon="hotel-o" />
       </van-cell-group>
 
       <van-cell-group>
-        <van-field
-          v-model="cityName"
-          placeholder="请输入城市名"
-          left-icon="location-o"
-        />
+        <van-field v-model="cityName" placeholder="请输入城市名" left-icon="location-o" />
       </van-cell-group>
 
-      <van-cell-group>
-        <van-field
-          placeholder="选择入住时间"
-          left-icon="notes-o"
-          @click="showPopupIn"
-          :value="valueTimeLiveIn"
-        />
-        <van-popup
-          v-model="showIn"
-          round
-          position="bottom"
-          :style="{ height: '60%' }"
-        >
-          <van-datetime-picker
-            type="date"
-            @confirm="confirmLiveIn"
-            @cancel="cancelLiveIn"
-            :min-date="startTime"
-            :formatter="formatter"
-          />
-        </van-popup>
-      </van-cell-group>
-      <van-cell-group>
-        <van-field
-          placeholder="选择离店时间"
-          left-icon="notes-o"
-          @click="showPopupOut"
-          :value="valueTimeLiveOut"
-        />
-        <van-popup
-          v-model="showOut"
-          round
-          position="bottom"
-          :style="{ height: '60%' }"
-        >
-          <van-datetime-picker
-            type="date"
-            @confirm="confirmLiveOut"
-            @cancel="cancelLiveIn"
-            :min-date="endTime"
-            :formatter="formatter"
-          />
-        </van-popup>
-      </van-cell-group>
+      <!-- <datePicker /> -->
+      <demo />
 
       <van-button
         icon="search"
         color="linear-gradient(to right, #4bb0ff, #6149f6)"
         size="large"
         @click="searchInfo"
-        >搜索</van-button
-      >
+      >搜索</van-button>
     </div>
     <!-- 数据列表 -->
     <div class="list">
-      <van-list
-        v-model="loading"
-        :finished="finished"
-        finished-text="没有更多了"
-      >
+      <van-list v-model="loading" :finished="finished" finished-text="没有更多了">
         <van-cell v-for="(item, index) in 8" :key="index" @click="toDetail">
           <img
             src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1546595911,624006547&fm=26&gp=0.jpg"
@@ -95,9 +40,7 @@
           />
           <div class="left">
             <div class="bold">龙浦大酒店</div>
-            <div class="address">
-              杭州 &nbsp;&nbsp;富阳区&nbsp;&nbsp;龙浦街道196号
-            </div>
+            <div class="address">杭州 &nbsp;&nbsp;富阳区&nbsp;&nbsp;龙浦街道196号</div>
             <div class="address">二星级及以下/经济</div>
           </div>
           <div class="right">
@@ -110,68 +53,74 @@
 </template>
 
 <script>
-var moment = require('moment')
+// import datePicker from "../components/datePicker";
+import demo from '../components/demo'
+
 export default {
+  components: {
+    // datePicker
+    demo
+  },
   data() {
     return {
       imgList: [
-        'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1042650240,4209338409&fm=26&gp=0.jpg',
-        'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1616050083,3744682081&fm=26&gp=0.jpg',
-        'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2681834925,3412885945&fm=26&gp=0.jpg'
+        "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1042650240,4209338409&fm=26&gp=0.jpg",
+        "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1616050083,3744682081&fm=26&gp=0.jpg",
+        "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2681834925,3412885945&fm=26&gp=0.jpg"
       ],
-      hotelName: '',
-      cityName: '',
+      hotelName: "",
+      cityName: "",
       loading: false,
       finished: false,
       showIn: false,
       showOut: false,
-      valueTimeLiveIn: '',
-      valueTimeLiveOut: '',
+      valueTimeLiveIn: "",
+      valueTimeLiveOut: "",
       startTime: new Date(), // 开始时间
       endTime: new Date() // 结束时间
-    }
+    };
   },
 
   methods: {
     // 点击跳转到酒店详情页面
     toDetail() {
-      this.$router.push('./detail')
+      this.$router.push("./detail");
     },
-    // 点击输入框事件
-    showPopupIn() {
-      this.showIn = true
-    },
-    showPopupOut() {
-      this.showOut = true
-    },
-    // 点击确认事件
-    confirmLiveIn(value) {
-      // console.log(1)
-      this.valueTimeLiveIn = moment(value).format('YYYY-MM-DD')
-      this.showIn = false
-    },
-    confirmLiveOut(value) {
-      // console.log(2)
-      this.valueTimeLiveOut = moment(value).format('YYYY-MM-DD')
-      this.showOut = false
-    },
-    cancelLiveIn() {
-      this.showIn = false
-      this.showOut = false
-    },
+    // // 点击输入框事件
+    // showPopupIn() {
+    //   this.showIn = true;
+    // },
+    // showPopupOut() {
+    //   this.showOut = true;
+    // },
+    // // 点击确认事件
+    // confirmLiveIn(value) {
+    //   // console.log(1)
+    //   this.valueTimeLiveIn = moment(value).format("YYYY-MM-DD");
+    //   this.showIn = false;
+    // },
+    // confirmLiveOut(value) {
+    //   // console.log(2)
+    //   this.valueTimeLiveOut = moment(value).format("YYYY-MM-DD");
+    //   this.showOut = false;
+    // },
+    // cancelLiveIn() {
+    //   this.showIn = false;
+    //   this.showOut = false;
+    // },
     // 点击搜索按钮去到搜索页面并发送请求获取数据
     searchInfo() {
-      this.$router.push('./search')
+      this.$router.push("./search");
     },
-    formatter(type, value) {
-      // 格式化选择器日期
-      if (type === 'year') {
-        return `${value}年`
-      } else if (type === 'month') {
-        return `${value}月`
-      }
-      return value
-    }
+    // formatter(type, value) {
+    //   // 格式化选择器日期
+    //   if (type === "year") {
+    //     return `${value}年`;
+    //   } else if (type === "month") {
+    //     return `${value}月`;
+    //   }
+    //   return value;
+    // }
   }
   // onLoad() {
   //   // 异步更新数据
@@ -187,7 +136,7 @@ export default {
   //     }
   //   }, 500)
   // }
-}
+};
 </script>
 
 <style lang="less" scoped>

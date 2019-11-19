@@ -30,10 +30,15 @@ const routes = [
     component: () => import('../views/Reservation.vue')
   },
   {
-    path: '/datePicker',
-    name: 'datePicker',
-    component: () => import('../components/datePicker.vue')
-  }
+    path: '/demo',
+    name: 'demo',
+    component: () => import('../components/demo.vue')
+  },
+  // {
+  //   path: '/datePicker',
+  //   name: 'datePicker',
+  //   component: () => import('../components/datePicker.vue')
+  // }
 ]
 
 const router = new VueRouter({
