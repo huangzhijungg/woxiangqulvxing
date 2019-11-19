@@ -70,9 +70,9 @@ export default {
     line-height: 60 * @appSize;
     margin-left: 10 * @appSize;
   }
-  van-search {
+  .van-search {
     box-sizing: border-box;
-    padding: 12px 12px;
+    padding: 14px 12px;
   }
 }
 </style>

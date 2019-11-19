@@ -7,9 +7,10 @@
       </div>
     </div> -->
 
+    <!-- 选择两个 -->
     <div class="mu-text-field">
       <div class="mu-text-field-content">
-        <input class="mu-text-field-input" placeholder="选择开始和结束" @click="showdateDouble = true" v-model="showDouble" readonly="readonly">
+        <input class="mu-text-field-input" placeholder="选择入店和离店时间" @click="showdateDouble = true" v-model="showDouble" readonly="readonly">
         <div><hr class="mu-text-field-line"> <hr class="mu-text-field-focus-line"></div>
       </div>
     </div>
@@ -35,10 +36,11 @@ export default {
       endDouble: "",
       dateOptionsDouble: {
         // scrollEnd: true, // 滚到最后
-        start: "2018-01-01",
+        // start: "2018-01-01",
         maxDate: "24m", // 月份跨度
         isDoubleCheck: true,
-        // startDate: this.formatDate(new Date().getTime())
+        // 获取当前日期,不能选择今天之前的日期
+        startDate: this.formatDate(new Date().getTime())
       },
       dateOptionsSingle: {
         // scrollEnd: true, // 滚到最后
@@ -50,12 +52,13 @@ export default {
     };
   },
   computed: {
-    showSingle() {
-      return this.startSingle;
-    },
+    // showSingle() {
+    //   return this.startSingle;
+    // },
+    // 输入框绑定的值
     showDouble() {
       if(this.startDouble && this.endDouble){
-        return this.startDouble + "至" + this.endDouble;
+        return this.startDouble + ` --------------- 至 --------------- ` + this.endDouble;
       }else if (this.startDouble && !this.endDouble){
         return this.startDouble
       }
@@ -103,15 +106,17 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="less" scoped>
+@appSize: 1/37.52rem;
+
 .mu-text-field {
-  font-size: 16px;
+  font-size: 16 * @appSize;
   width: 100%;
-  min-height: 48px;
+  min-height: 48 * @appSize;
   display: inline-block;
   position: relative;
   color: rgba(0, 0, 0, 0.54);
-  margin-bottom: 8px;
+  margin-bottom: 8 * @appSize;
 }
 
 .mu-text-field.full-width {
@@ -119,7 +124,7 @@ export default {
 }
 
 .mu-text-field.has-icon {
-  padding-left: 56px;
+  padding-left: 56 * @appSize;
 }
 
 .mu-text-field.focus-state {
@@ -131,24 +136,24 @@ export default {
 }
 
 .mu-text-field.has-label {
-  min-height: 72px;
+  min-height: 72 * @appSize;
 }
 
 .mu-text-field-icon {
   position: absolute;
-  left: 16px;
-  top: 12px;
+  left: 16 * @appSize;
+  top: 12 * @appSize;
 }
 
 .mu-text-field.has-label .mu-text-field-icon {
-  top: 36px;
+  top: 36 * @appSize;
 }
 
 .mu-text-field-content {
   display: block;
   height: 100%;
-  padding-bottom: 12px;
-  padding-top: 4px;
+  padding-bottom: 12 * @appSize;
+  padding-top: 4 * @appSize;
 }
 
 .mu-text-field.disabled .mu-text-field-content {
@@ -157,8 +162,8 @@ export default {
 }
 
 .mu-text-field.has-label .mu-text-field-content {
-  padding-top: 28px;
-  padding-bottom: 12px;
+  padding-top: 28 * @appSize;
+  padding-bottom: 12 * @appSize;
 }
 
 .mu-text-field-input {
@@ -174,7 +179,7 @@ export default {
   padding: 0;
   margin: 0;
   width: 100%;
-  height: 32px;
+  height: 32 * @appSize;
   font-style: inherit;
   font-variant: inherit;
   font-weight: inherit;
@@ -183,13 +188,14 @@ export default {
   color: rgba(0, 0, 0, 0.87);
   font-family: inherit;
   position: relative;
+  text-indent: 8 * @appSize;
 }
 
 .mu-text-field-help {
   position: absolute;
-  margin-top: 6px;
-  font-size: 12px;
-  line-height: 12px;
+  margin-top: 6 * @appSize;
+  font-size: 12 * @appSize;
+  line-height: 12 * @appSize;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -203,7 +209,7 @@ export default {
 }
 
 .mu-text-field.has-icon .mu-text-field-help {
-  left: 56px;
+  left: 56 * @appSize;
 }
 
 .mu-text-field.error .mu-text-field-help {
@@ -216,7 +222,7 @@ export default {
 
 .mu-text-field-line {
   margin: 0;
-  height: 1px;
+  height: 1 * @appSize;
   border: none;
   background-color: rgba(0, 0, 0, 0.12);
   left: 0;
@@ -225,7 +231,7 @@ export default {
 }
 
 .mu-text-field.has-icon .mu-text-field-line {
-  left: 56px;
+  left: 56 * @appSize;
 }
 
 .mu-text-field-line.disabled {
@@ -236,13 +242,13 @@ export default {
 
 .mu-text-field-focus-line {
   margin: 0;
-  height: 2px;
+  height: 2 * @appSize;
   border: none;
   background-color: #7e57c2;
   position: absolute;
   left: 0;
   right: 0;
-  margin-top: -1px;
+  margin-top: -1 * @appSize;
   -webkit-transform: scaleX(0);
   -ms-transform: scaleX(0);
   transform: scaleX(0);
@@ -254,7 +260,7 @@ export default {
 }
 
 .mu-text-field.has-icon .mu-text-field-focus-line {
-  left: 56px;
+  left: 56 * @appSize;
 }
 
 .mu-text-field-focus-line.error,
@@ -292,7 +298,7 @@ export default {
 }
 
 .mu-text-field-label {
-  line-height: 20px;
+  line-height: 20 * @appSize;
   -webkit-transition: all 0.45s cubic-bezier(0.23, 1, 0.32, 1);
   transition: all 0.45s cubic-bezier(0.23, 1, 0.32, 1);
   z-index: 1;
@@ -312,7 +318,7 @@ export default {
 }
 
 .mu-text-field.has-label .mu-text-field-label {
-  top: 8px;
+  top: 8 * @appSize;
   position: absolute;
 }
 
@@ -328,7 +334,7 @@ export default {
   -webkit-transition: opacity 0.45s cubic-bezier(0.23, 1, 0.32, 1);
   transition: opacity 0.45s cubic-bezier(0.23, 1, 0.32, 1);
   color: rgba(0, 0, 0, 0.38);
-  line-height: 34px;
+  line-height: 34 * @appSize;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -350,14 +356,14 @@ export default {
 .mu-select-field .mu-dropDown-menu {
   display: block;
   width: 100%;
-  height: 32px;
+  height: 32 * @appSize;
 }
 
 .mu-select-field .mu-dropDown-menu-text {
-  line-height: 32px;
-  height: 32px;
+  line-height: 32 * @appSize;
+  height: 32 * @appSize;
   padding-left: 0;
-  padding-right: 24px;
+  padding-right: 24 * @appSize;
   word-wrap: break-word;
   overflow: hidden;
 }
@@ -368,6 +374,6 @@ export default {
 
 .mu-select-field .mu-dropDown-menu-icon {
   right: 0;
-  top: 6px;
+  top: 6 * @appSize;
 }
 </style>

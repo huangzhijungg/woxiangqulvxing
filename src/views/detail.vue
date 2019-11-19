@@ -17,27 +17,33 @@
       position="bottom"
       :style="{ height: '60%' }"
     >
-    <div class="titel">
-      <p>酒店信息</p>
-    </div>
-    <div class="content">
-      <div class="intro">
-        <p>酒店简介</p>
-        <span>硬件是直观看到的酒店位置，酒店设计，酒店房间设施，酒店配套（比如健身房，SPA，什么样的餐厅有几个，儿童俱乐部等）</span>
+      <div class="titel">
+        <p>酒店信息</p>
       </div>
-      <div class="facility">
-        <p>酒店设施</p>
-        <span>软件就是酒店服务，从接机开始到行李员，前台服务，客房服务，餐厅人员的态度和你遇到问题时他们的应对态度和处理方式甚至后续跟进等。</span>
+      <div class="content">
+        <div class="intro">
+          <p>酒店简介</p>
+          <span
+            >硬件是直观看到的酒店位置，酒店设计，酒店房间设施，酒店配套（比如健身房，SPA，什么样的餐厅有几个，儿童俱乐部等）</span
+          >
+        </div>
+        <div class="facility">
+          <p>酒店设施</p>
+          <span
+            >软件就是酒店服务，从接机开始到行李员，前台服务，客房服务，餐厅人员的态度和你遇到问题时他们的应对态度和处理方式甚至后续跟进等。</span
+          >
+        </div>
+        <div class="hint ">
+          <p>特别提示</p>
+          <span
+            >环境优美，地理位置好，交通方便，房间舒适卫生，服务人员很热情，乐于提供各种帮助，早餐丰富。设施很人性化，网络高速信号好，窗外风景好。有特别的开床服务，房间小摆件的设计也很有特色。性价比不错</span
+          >
+        </div>
+        <div class="phone">
+          <p>联系方式</p>
+          <span>0755-908-99008</span>
+        </div>
       </div>
-      <div class="hint ">
-        <p>特别提示</p>
-        <span>环境优美，地理位置好，交通方便，房间舒适卫生，服务人员很热情，乐于提供各种帮助，早餐丰富。设施很人性化，网络高速信号好，窗外风景好。有特别的开床服务，房间小摆件的设计也很有特色。性价比不错</span>
-      </div>
-      <div class="phone">
-        <p>联系方式</p>
-        <span>0755-908-99008</span>
-      </div>
-    </div>
     </van-popup>
     <!-- 轮播图 -->
     <div class="swipper">
@@ -49,8 +55,8 @@
     </div>
 
     <div class="hotelInfo">
-      <div class="name">
-        酒店名称：济州肯辛顿酒店
+      <div class="special">
+        <span class="tese">酒店名称：济州肯辛顿酒店</span>
         <span>
           地图
           <van-icon name="arrow" class="rightarrow" />
@@ -58,7 +64,9 @@
       </div>
 
       <div class="special">
-        酒店特色：222222
+        <span class="tese"
+          >酒店特色：2222222222222222222222222222222222222222</span
+        >
         <span @click="showDetail">
           详情
           <van-icon name="arrow" class="rightarrow" />
@@ -146,11 +154,12 @@ export default {
     font-size: 22 * @appSize;
     float: left;
     line-height: 40 * @appSize;
+    margin: 0 10 * @appSize;
   }
   .van-notice-bar {
     .van-notice-bar__left-icon,
     .van-notice-bar__right-icon {
-      min-width: 30px;
+      min-width: 30 * @appSize;
     }
   }
 }
@@ -178,11 +187,19 @@ export default {
     line-height: 40 * @appSize;
     border-bottom: 1 * @appSize solid #ccc;
   }
+  .special {
+    display: flex;
+    justify-content: space-between;
+    .tese {
+      width: 290 * @appSize;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
   .special,
   .name {
     span {
-      float: right;
-
       .rightarrow {
         right: 18px;
         top: 3px;
@@ -197,7 +214,6 @@ export default {
 
   .van-collapse-item {
     margin-bottom: 5 * @appSize;
-
 
     .van-collapse-item__wrapper {
       .van-collapse-item__content {
@@ -229,27 +245,27 @@ export default {
     }
   }
 }
-.titel{
+.titel {
   width: 100%;
   height: 40 * @appSize;
   background-color: orange;
-  p{
+  p {
     text-align: center;
     line-height: 40 * @appSize;
     color: #fff;
     font-size: 14 * @appSize;
   }
 }
-.content{
+.content {
   padding: 10 * @appSize;
   box-sizing: border-box;
-  div{
+  div {
     margin-bottom: 20 * @appSize;
-    p{
+    p {
       font-size: 14 * @appSize;
       font-weight: bold;
     }
-    span{
+    span {
       font-size: 12 * @appSize;
       color: #666;
     }

@@ -242,7 +242,9 @@ export default {
 };
 </script>
 
-<style  scoped>
+<style lang="less" scoped>
+@appSize: 1/37.52rem;
+
 .am-calendar-mask-enter,
 .am-calendar-mask-leave-to {
   opacity: 0;
@@ -299,7 +301,7 @@ export default {
 .am-calendar-title {
   background-color: #fafafa;
   position: relative;
-  line-height: 120px;
+  line-height: 120 * @appSize;
   text-align: center;
   z-index: 1001;
   display: -webkit-box;
@@ -311,24 +313,24 @@ export default {
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  max-height: 48px;
-  font-size: 16px;
+  max-height: 48 * @appSize;
+  font-size: 16 * @appSize;
 }
 .am-calendar-title .button {
   color: #7e57c2;
-  font-size: 16px;
-  margin-right: 15px;
+  font-size: 16 * @appSize;
+  margin-right: 15 * @appSize;
 }
 .am-calendar-title .close {
   color: #7e57c2;
-  font-size: 16px;
-  margin-left: 15px;
+  font-size: 16 * @appSize;
+  margin-left: 15 * @appSize;
 }
 .am-calendar-week-bar {
   background-color: #fafafa;
   position: relative;
-  height: 46.75px;
-  line-height: 46.75px;
+  height: 46.75 * @appSize;
+  line-height: 46.75 * @appSize;
   display: flex;
   z-index: 1001;
   border-bottom: 1px solid #d9d9d9;
@@ -337,21 +339,21 @@ export default {
   flex: 1;
   text-align: center;
   color: #9aaec1;
-  font-size: 12px;
+  font-size: 12 * @appSize;
 }
 .month-bar-fixed {
   overflow: visible;
   text-align: center;
-  height: 52px;
-  line-height: 54px;
+  height: 52 * @appSize;
+  line-height: 54 * @appSize;
   width: 100%;
   position: fixed;
-  top: 94px;
+  top: 94 * @appSize;
   background-color: #fff;
   z-index: 1000;
   border-bottom: 1px solid #d9d9d9;
   color: rgba(0, 0, 0, 0.87);
-  font-size: 14px;
+  font-size: 14 * @appSize;
   font-weight: 500;
 }
 .scroll-panel-wrapper {
@@ -364,14 +366,14 @@ export default {
 }
 .month-bar {
   text-align: center;
-  height: 50.67px;
-  line-height: 50.67px;
+  height: 50.67 * @appSize;
+  line-height: 50.67 * @appSize;
   width: 100%;
   position: relative;
   background: #fff;
   border-bottom: 1px solid #d9d9d9;
   color: rgba(0, 0, 0, 0.87);
-  font-size: 14px;
+  font-size: 14 * @appSize;
   font-weight: 500;
 }
 .month-list-item {
@@ -379,7 +381,7 @@ export default {
   padding: 0;
   margin: 0;
   list-style: none;
-  margin: 5px;
+  margin: 5 * @appSize;
 }
 .month-list-item li {
   float: left;
@@ -395,11 +397,11 @@ export default {
 }
 .month-list-item li span {
   display: block;
-  height: 33.11px;
-  line-height: 33.11px;
+  height: 33.11 * @appSize;
+  line-height: 33.11 * @appSize;
   box-sizing: border-box;
   width: 100%;
-  font-size: 12px;
+  font-size: 12 * @appSize;
   font-weight: 400;
   position: relative;
   z-index: 2;
@@ -408,7 +410,7 @@ export default {
 .month-list-item li.selected-end span {
   color: #fff;
   background-color: #7e57c2;
-  border-radius: 2px;
+  border-radius: 2 * @appSize;
 }
 .month-list-item li.selected-line {
   background-color: #f3f3f3;
