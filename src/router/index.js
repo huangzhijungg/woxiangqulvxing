@@ -7,22 +7,32 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    component: () => import('../views/home.vue')
+    component: () => import('../views/Home.vue')
   },
   {
     path: '/detail',
     name: 'detail',
-    component: () => import('../views/detail.vue')
+    component: () => import('../views/Detail.vue')
   },
   {
     path: '/search',
     name: 'search',
-    component: () => import('../views/search.vue')
+    component: () => import('../views/Search.vue')
   },
   {
     path: '/searchBar',
     name: 'searchBar',
     component: () => import('../components/searchBar.vue')
+  },
+  {
+    path: '/reservation',
+    name: 'reservation',
+    component: () => import('../views/Reservation.vue')
+  },
+  {
+    path: '/datePicker',
+    name: 'datePicker',
+    component: () => import('../components/datePicker.vue')
   }
 ]
 

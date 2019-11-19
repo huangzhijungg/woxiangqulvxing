@@ -58,6 +58,15 @@ Vue.use(Collapse).use(CollapseItem);
 import { Search } from 'vant';
 Vue.use(Search);
 
+import { Row, Col } from 'vant';
+Vue.use(Row).use(Col);
+
+import { NavBar } from 'vant';
+Vue.use(NavBar);
+
+import { Divider } from 'vant';
+Vue.use(Divider);
+
 Vue.config.productionTip = false
 
 new Vue({

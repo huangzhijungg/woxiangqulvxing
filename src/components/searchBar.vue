@@ -1,38 +1,53 @@
 <template>
   <div class="searchBar">
     <div class="topBar">
-      <van-icon name="arrow-left" class="icon" @click="goBackLast"/>
-      <form action="/">
-        <van-search
-          v-model="value"
-          placeholder="请输入酒店名/地名"
-          show-action
-          @search="onSearch"
-          @cancel="onCancel"
-        />
-      </form>
+      <van-row>
+        <van-col span="2">
+          <van-icon name="arrow-left" class="icon" @click="goBackLast" />
+        </van-col>
+        <van-col span="22">
+          <form action="/">
+            <van-search
+              v-model="value"
+              placeholder="请输入酒店名/地名"
+              background="orange"
+              :show-action="isShow"
+              @search="onSearch"
+              @cancel="onCancel"
+              @focus="focus"
+            />
+          </form>
+        </van-col>
+      </van-row>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-    data() {
-        return {
-            value:'',
-        }
+  data() {
+    return {
+      value: "",
+      isShow: false
+    };
+  },
+  methods: {
+    onSearch() {
+      console.log("搜索");
     },
-    methods: {
-        onSearch(){
-            console.log('搜索')
-        },
-        onCancel(){
-            console.log('取消');
-        },
-        goBackLast(){
-            this.$router.back()
-        }
+    onCancel() {
+      console.log("取消");
     },
+    goBackLast() {
+      this.$router.back();
+    },
+    focus() {
+      this.isShow = true;
+    },
+    onCancel() {
+      this.isShow = false;
+    }
+  }
 };
 </script>
 
@@ -41,19 +56,23 @@ export default {
 
 .topBar {
   width: 100%;
-  height: 50 * @appSize;
+  height: 60 * @appSize;
   background-color: orange;
   position: fixed;
   top: 0;
-  bottom: 0;
   right: 0;
   left: 0;
+  z-index: 1;
 
-  .icon{
-      color: #fff;
-      font-size: 20 * @appSize;
-      line-height: 50 * @appSize;
-      margin-left: 10 * @appSize;
+  .icon {
+    color: #fff;
+    font-size: 20 * @appSize;
+    line-height: 60 * @appSize;
+    margin-left: 10 * @appSize;
+  }
+  van-search {
+    box-sizing: border-box;
+    padding: 12px 12px;
   }
 }
 </style>
