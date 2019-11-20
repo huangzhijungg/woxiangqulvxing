@@ -67,6 +67,11 @@ Vue.use(NavBar);
 import { Divider } from 'vant';
 Vue.use(Divider);
 
+import { Toast } from 'vant';
+Vue.use(Toast);
+
+// import { Area } from 'vant';
+// Vue.use(Area);
 
 Vue.config.productionTip = false
 

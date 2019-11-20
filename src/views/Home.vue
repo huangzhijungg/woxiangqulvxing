@@ -17,8 +17,23 @@
       </van-cell-group>
 
       <van-cell-group>
-        <van-field v-model="cityName" placeholder="请输入城市名" left-icon="location-o" />
+        <van-field
+          v-model="cityName"
+          placeholder="请输入城市名"
+          left-icon="location-o"
+          @click="showPicker = true"
+        />
       </van-cell-group>
+
+      <van-popup v-model="showPicker" position="bottom">
+        <van-picker
+          show-toolbar
+          :columns="columns"
+          @cancel="showPicker = false"
+          @confirm="onConfirm"
+          :default-index="0"
+        />
+      </van-popup>
 
       <!-- <datePicker /> -->
       <demo />
@@ -54,7 +69,7 @@
 
 <script>
 // import datePicker from "../components/datePicker";
-import demo from '../components/demo'
+import demo from "../components/demo";
 
 export default {
   components: {
@@ -72,55 +87,24 @@ export default {
       cityName: "",
       loading: false,
       finished: false,
-      showIn: false,
-      showOut: false,
-      valueTimeLiveIn: "",
-      valueTimeLiveOut: "",
-      startTime: new Date(), // 开始时间
-      endTime: new Date() // 结束时间
+      showPicker: false,
+      columns: ['北京', '上海', '广州', '深圳']
     };
   },
 
   methods: {
+     onConfirm(value) {
+      this.cityName = value;
+      this.showPicker = false;
+    },
     // 点击跳转到酒店详情页面
     toDetail() {
       this.$router.push("./detail");
     },
-    // // 点击输入框事件
-    // showPopupIn() {
-    //   this.showIn = true;
-    // },
-    // showPopupOut() {
-    //   this.showOut = true;
-    // },
-    // // 点击确认事件
-    // confirmLiveIn(value) {
-    //   // console.log(1)
-    //   this.valueTimeLiveIn = moment(value).format("YYYY-MM-DD");
-    //   this.showIn = false;
-    // },
-    // confirmLiveOut(value) {
-    //   // console.log(2)
-    //   this.valueTimeLiveOut = moment(value).format("YYYY-MM-DD");
-    //   this.showOut = false;
-    // },
-    // cancelLiveIn() {
-    //   this.showIn = false;
-    //   this.showOut = false;
-    // },
     // 点击搜索按钮去到搜索页面并发送请求获取数据
     searchInfo() {
       this.$router.push("./search");
-    },
-    // formatter(type, value) {
-    //   // 格式化选择器日期
-    //   if (type === "year") {
-    //     return `${value}年`;
-    //   } else if (type === "month") {
-    //     return `${value}月`;
-    //   }
-    //   return value;
-    // }
+    }
   }
   // onLoad() {
   //   // 异步更新数据

@@ -16,13 +16,14 @@
         <van-field v-model="value" label="房间1" placeholder="姓名" />
       </van-cell-group>
       <van-cell-group>
-        <van-field v-model="mobile" label="手机号" placeholder="请输入手机" />
+        <van-field v-model="phonenumber" label="手机号" placeholder="请输入手机" maxlength="11" />
+        <p v-if="!isShow" class="pText">请输入正确的手机号</p>
       </van-cell-group>
     </div>
     <div class="comment">
       <van-cell-group>
         <van-field
-          v-model="message"
+          v-model="remark"
           rows="2"
           autosize
           label="住房备注"
@@ -47,7 +48,7 @@
     </div>
     <div class="money">
       <span>订单总额 ： ￥ 248</span>
-      <button>下一步</button>
+      <button @click="nextTo">去支付</button>
     </div>
   </div>
 </template>
@@ -56,14 +57,39 @@
 export default {
   data() {
     return {
-      value: "",
-      mobile: "",
-      message: ""
+      value: "我想去",
+      phonenumber: "18679664380",
+      // 住房备注
+      remark: "",
+      isShow: true
     };
   },
   methods: {
     onClickLeft() {
       this.$router.back();
+    },
+    nextTo() {
+      if (this.value == "" || this.phonenumber == "") {
+        console.log(111);
+        this.$toast({
+          message: "姓名或电话不能为空",
+          icon: "warning"
+        });
+      } else {
+        let re = /^1(3|4|5|6|7|8|9)\d{9}$/;
+        // 正则，验证手机号输入是否正确
+        let show = re.test(this.phonenumber);
+        // 若正确返回true，反之false
+        this.isShow = show;
+        // isShow获取之后返回到v-if进行判断是消失还是出现
+        if (this.isShow) {
+          // this.$router.push("/Login_test");
+          console.log("通过");
+          // 一定要进行判断，只有返回的是true才证明输入电话号码正确，才能跳转到下一页获取验证码
+          this.$router.push('./pay')
+          // console.log("支付成功");
+        }
+      }
     }
   }
 };
@@ -90,7 +116,7 @@ export default {
     margin-right: 20 * @appSize;
   }
   .text {
-    text-align: center;
+    // text-align: center;
     font-size: 14 * @appSize;
   }
 }
@@ -110,6 +136,11 @@ export default {
 }
 .userInfo {
   margin-bottom: 10 * @appSize;
+
+  .pText {
+    text-align: center;
+    color: red;
+  }
 }
 .txt {
   padding: 10 * @appSize;
@@ -140,14 +171,14 @@ export default {
   right: 0;
   left: 0;
 
-  span{
-      color: orange;
-      font-size: 16 * @appSize;
+  span {
+    color: orange;
+    font-size: 16 * @appSize;
   }
-  button{
-      border: none;
-      background-color: orange;
-      color: #fff
+  button {
+    border: none;
+    background-color: orange;
+    color: #fff;
   }
 }
 </style>

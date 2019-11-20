@@ -10,34 +10,22 @@
       />
     </div>
     <!-- 弹出层 -->
-    <van-popup
-      v-model="show"
-      overlay
-      closeable
-      position="bottom"
-      :style="{ height: '60%' }"
-    >
+    <van-popup v-model="show" overlay closeable position="bottom" :style="{ height: '60%' }">
       <div class="titel">
         <p>酒店信息</p>
       </div>
       <div class="content">
         <div class="intro">
           <p>酒店简介</p>
-          <span
-            >硬件是直观看到的酒店位置，酒店设计，酒店房间设施，酒店配套（比如健身房，SPA，什么样的餐厅有几个，儿童俱乐部等）</span
-          >
+          <span>硬件是直观看到的酒店位置，酒店设计，酒店房间设施，酒店配套（比如健身房，SPA，什么样的餐厅有几个，儿童俱乐部等）</span>
         </div>
         <div class="facility">
           <p>酒店设施</p>
-          <span
-            >软件就是酒店服务，从接机开始到行李员，前台服务，客房服务，餐厅人员的态度和你遇到问题时他们的应对态度和处理方式甚至后续跟进等。</span
-          >
+          <span>软件就是酒店服务，从接机开始到行李员，前台服务，客房服务，餐厅人员的态度和你遇到问题时他们的应对态度和处理方式甚至后续跟进等。</span>
         </div>
-        <div class="hint ">
+        <div class="hint">
           <p>特别提示</p>
-          <span
-            >环境优美，地理位置好，交通方便，房间舒适卫生，服务人员很热情，乐于提供各种帮助，早餐丰富。设施很人性化，网络高速信号好，窗外风景好。有特别的开床服务，房间小摆件的设计也很有特色。性价比不错</span
-          >
+          <span>环境优美，地理位置好，交通方便，房间舒适卫生，服务人员很热情，乐于提供各种帮助，早餐丰富。设施很人性化，网络高速信号好，窗外风景好。有特别的开床服务，房间小摆件的设计也很有特色。性价比不错</span>
         </div>
         <div class="phone">
           <p>联系方式</p>
@@ -64,14 +52,14 @@
       </div>
 
       <div class="special">
-        <span class="tese"
-          >酒店特色：2222222222222222222222222222222222222222</span
-        >
+        <span class="tese">酒店特色：2222222222222222222222222222222222222222</span>
         <span @click="showDetail">
           详情
           <van-icon name="arrow" class="rightarrow" />
         </span>
       </div>
+
+      <!-- <demo /> -->
     </div>
     <!-- 折叠面板 -->
     <van-collapse v-model="activeName" accordion>
@@ -95,9 +83,7 @@
               <span>￥536</span>
             </p>
             <p>总价￥536</p>
-            <van-button type="primary" size="mini" @click="reserve"
-              >预定</van-button
-            >
+            <van-button type="primary" size="mini" @click="reserve">预定</van-button>
           </div>
         </div>
       </van-collapse-item>
@@ -106,38 +92,36 @@
 </template>
 
 <script>
+// import demo from "../components/demo";
 export default {
+  // components:{
+  //   demo
+  // },
   data() {
     return {
       images: [
-        'https://f10.baidu.com/it/u=1208544201,1064095414&fm=72',
-        'http://img0.imgtn.bdimg.com/it/u=1692231286,3926982492&fm=26&gp=0.jpg',
-        'http://img3.imgtn.bdimg.com/it/u=2920944932,3026420003&fm=26&gp=0.jpg'
+        "https://f10.baidu.com/it/u=1208544201,1064095414&fm=72",
+        "http://img0.imgtn.bdimg.com/it/u=1692231286,3926982492&fm=26&gp=0.jpg",
+        "http://img3.imgtn.bdimg.com/it/u=2920944932,3026420003&fm=26&gp=0.jpg"
       ],
       show: false,
-      activeName: '1'
-    }
+      activeName: "1"
+    };
   },
   methods: {
     //点击返回到上一页面
     goBack() {
-      this.$router.back()
+      this.$router.back();
     },
     showDetail() {
-      this.show = !this.show
-      // console.log(111);
-      //       this.$dialog.alert({
-      //         title: "酒店信息", //加上标题
-      //         message: `客房:有221间空调客房提供冰箱和免费迷你吧物品；您定能在旅途中找到家的舒适。客房设有私人阳台。带有数码节目的LED 电视可满足您的娱乐需求；同时提供免费无线上网帮助您与朋友保持联系。配备独立的浴缸和淋浴的浴室提供浸泡浴缸和大花洒淋浴喷头.设施:您可到 SPA 慰劳一下自己，这里提供按摩、身体护理和面部护理。一定要去体验 2 个室内和2 个室外游泳池以及健身俱乐部等度假设施。此酒店的其他特色包括免费无线上网、礼宾服务和礼品店/报摊。餐饮:
-      // 酒店设有 4 间餐厅，您可以选择到Dolmirong简单吃一点，也可以待在房间里，享受 24 小时送餐服务。此外2 间咖啡馆还供应美味点心。这里有 2 间酒吧/酒廊和 2 间池畔酒吧供您选择，让您可以小酌一番，轻松一下。每天 07:00 至 10:00 提供收费的自助式早餐早餐。`
-      //       });
+      this.show = !this.show;
     },
     reserve() {
       // console.log('预定成功')
-      this.$router.push('./reservation')
+      this.$router.push("./reservation");
     }
   }
-}
+};
 </script>
 
 <style lang="less">

@@ -58,7 +58,7 @@ export default {
     // 输入框绑定的值
     showDouble() {
       if(this.startDouble && this.endDouble){
-        return this.startDouble + ` --------------- 至 --------------- ` + this.endDouble;
+        return this.startDouble + ` ----- 至 ----- ` + this.endDouble;
       }else if (this.startDouble && !this.endDouble){
         return this.startDouble
       }

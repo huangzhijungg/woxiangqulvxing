@@ -72,7 +72,7 @@ export default {
   }
   .van-search {
     box-sizing: border-box;
-    padding: 14px 12px;
+    padding: 12 * @appSize 12* @appSize;
   }
 }
 </style>
