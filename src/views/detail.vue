@@ -45,7 +45,7 @@
     <div class="hotelInfo">
       <div class="special">
         <span class="tese">酒店名称：济州肯辛顿酒店</span>
-        <span>
+        <span @click="toMap">
           地图
           <van-icon name="arrow" class="rightarrow" />
         </span>
@@ -109,6 +109,9 @@ export default {
     };
   },
   methods: {
+    toMap(){
+      this.$router.push('./map')
+    },
     //点击返回到上一页面
     goBack() {
       this.$router.back();
