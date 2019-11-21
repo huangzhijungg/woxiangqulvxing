@@ -27,28 +27,32 @@
 export default {
   data() {
     return {
-      value: "",
+      value: '',
       isShow: false
-    };
+    }
   },
   methods: {
     onSearch() {
-      console.log("搜索");
+      if (this.value == '') {
+        this.$notify({ type: 'danger', message: '请输入要搜索的内容' ,duration:1000});
+        return
+      }
+      console.log('搜索')
     },
     onCancel() {
-      console.log("取消");
+      console.log('取消')
     },
     goBackLast() {
-      this.$router.back();
+      this.$router.back()
     },
     focus() {
-      this.isShow = true;
+      this.isShow = true
     },
     onCancel() {
-      this.isShow = false;
+      this.isShow = false
     }
   }
-};
+}
 </script>
 
 <style lang="less" scoped>
@@ -72,7 +76,7 @@ export default {
   }
   .van-search {
     box-sizing: border-box;
-    padding: 12 * @appSize 12* @appSize;
+    padding: 12 * @appSize 12 * @appSize;
   }
 }
 </style>

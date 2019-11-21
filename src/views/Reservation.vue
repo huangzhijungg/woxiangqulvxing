@@ -13,7 +13,7 @@
     </div>
     <div class="userInfo">
       <van-cell-group>
-        <van-field v-model="value" label="房间1" placeholder="姓名" />
+        <van-field v-model="value" label="住房人" placeholder="姓名" />
       </van-cell-group>
       <van-cell-group>
         <van-field v-model="phonenumber" label="手机号" placeholder="请输入手机" maxlength="11" />

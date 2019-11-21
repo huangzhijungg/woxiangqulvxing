@@ -76,6 +76,9 @@ Vue.use(Notify);
 import { Image } from 'vant';
 Vue.use(Image);
 
+import { CountDown } from 'vant';
+Vue.use(CountDown);
+
 Vue.config.productionTip = false
 
 new Vue({
