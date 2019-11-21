@@ -3,7 +3,7 @@
     <!-- 搜索组件 -->
     <SearchBar />
     <!-- 酒店列表 -->
-    <van-list>
+    <!-- <van-list> -->
       <van-cell v-for="(item, index) in 10" :key="index" @click="toDetail">
         <div class="hotelList">
           <div class="leftImg">
@@ -17,7 +17,7 @@
           </div>
         </div>
       </van-cell>
-    </van-list>
+    <!-- </van-list> -->
   </div>
 </template>
 

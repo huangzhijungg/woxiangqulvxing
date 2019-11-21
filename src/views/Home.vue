@@ -47,7 +47,7 @@
     </div>
     <!-- 数据列表 -->
     <div class="list">
-      <van-list v-model="loading" :finished="finished" finished-text="没有更多了">
+      <!-- <van-list v-model="loading" :finished="finished" finished-text="没有更多了"> -->
         <van-cell v-for="(item, index) in 8" :key="index" @click="toDetail">
           <img
             src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1546595911,624006547&fm=26&gp=0.jpg"
@@ -62,18 +62,16 @@
             <span>￥ 560起</span>
           </div>
         </van-cell>
-      </van-list>
+      <!-- </van-list> -->
     </div>
   </div>
 </template>
 
 <script>
-// import datePicker from "../components/datePicker";
 import demo from "../components/demo";
 
 export default {
   components: {
-    // datePicker
     demo
   },
   data() {
@@ -85,8 +83,8 @@ export default {
       ],
       hotelName: "",
       cityName: "",
-      loading: false,
-      finished: false,
+      // loading: false,
+      // finished: false,
       showPicker: false,
       columns: ['北京', '上海', '广州', '深圳']
     };
@@ -128,10 +126,12 @@ export default {
 @appSize: 1/37.52rem;
 .topBar {
   width: 100%;
-  height: 60 * @appSize;
-  border-bottom: 2 * @appSize solid #ccc;
+  height: 40 * @appSize;
+  background-color: orange;
+  color: #fff;
+  border-bottom: 1 * @appSize solid #ccc;
   text-align: center;
-  line-height: 60 * @appSize;
+  line-height: 40 * @appSize;
   font-size: 20 * @appSize;
   position: fixed;
   top: 0;
@@ -139,10 +139,6 @@ export default {
   right: 0;
   left: 0;
   z-index: 1;
-  background-color: #fff;
-  padding: 10 * @appSize;
-  box-sizing: border-box;
-  border-radius: 8 * @appSize;
 }
 
 .swipper {
@@ -150,7 +146,7 @@ export default {
   height: 220 * @appSize;
   padding: 10 * @appSize;
   box-sizing: border-box;
-  margin-top: 60 * @appSize;
+  margin-top: 40 * @appSize;
 
   .van-swipe {
     width: 100%;

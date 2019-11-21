@@ -70,8 +70,8 @@ Vue.use(Divider);
 import { Toast } from 'vant';
 Vue.use(Toast);
 
-// import { Area } from 'vant';
-// Vue.use(Area);
+import { Notify } from 'vant';
+Vue.use(Notify);
 
 Vue.config.productionTip = false
 

@@ -142,7 +142,6 @@ export default {
   align-items: center;
   justify-content: space-between;
   margin-bottom: 10 * @appSize;
-  // background-color: #;
   .pay-log-text {
     margin-left: 10 * @appSize;
     width: 200 * @appSize;
