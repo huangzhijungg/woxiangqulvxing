@@ -73,6 +73,9 @@ Vue.use(Toast);
 import { Notify } from 'vant';
 Vue.use(Notify);
 
+import { Image } from 'vant';
+Vue.use(Image);
+
 Vue.config.productionTip = false
 
 new Vue({

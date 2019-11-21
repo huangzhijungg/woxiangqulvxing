@@ -1,7 +1,7 @@
 <template>
   <div class="detail">
     <div class="top">
-      <van-icon name="arrow-left" @click="goBack" class="detail-leftIcon"/>
+      <van-icon name="arrow-left" @click="goBack" class="detail-leftIcon" />
       <van-notice-bar
         text="我想去旅行邀您体验，更好的享受，祝您住店愉快"
         left-icon="volume-o"
@@ -58,19 +58,21 @@
           <van-icon name="arrow" class="rightarrow" />
         </span>
       </div>
-
-      <!-- <demo /> -->
     </div>
+    <demo />
     <!-- 折叠面板 -->
     <van-collapse v-model="activeName" accordion>
       <van-collapse-item
+        icon="http://img2.imgtn.bdimg.com/it/u=106114937,2313334905&fm=26&gp=0.jpg"
         title="高级双床房"
         value="日均 ￥536  起"
-        v-for="(item, index) in 10"
+        v-for="(item, index) in 8"
         :key="index"
+        size="large"
         :name="index"
       >
         <div class="content" v-for="(item, index) in 3" :key="index">
+          <img src="http://img2.imgtn.bdimg.com/it/u=1165461476,304980642&fm=15&gp=0.jpg" alt="">
           <div class="left">
             <p>不含早 双床</p>
             <p>无预定条款</p>
@@ -92,11 +94,11 @@
 </template>
 
 <script>
-// import demo from "../components/demo";
+import demo from "../components/demo";
 export default {
-  // components:{
-  //   demo
-  // },
+  components: {
+    demo
+  },
   data() {
     return {
       images: [
@@ -136,7 +138,7 @@ export default {
 .top {
   width: 100%;
   height: 40 * @appSize;
-  background-color: 	#F5DEB3;
+  background-color: #f5deb3;
   position: fixed;
   top: 0;
   left: 0;
@@ -204,25 +206,53 @@ export default {
 }
 .van-collapse {
   background-color: #ddd;
-  padding: 4 * @appSize;
+  padding: 2 * @appSize;
   box-sizing: border-box;
+  // van-cell van-cell--clickable van-cell--large
 
   .van-collapse-item {
-    margin-bottom: 5 * @appSize;
+    margin-bottom: 10 * @appSize;
+    .van-cell {
+      display: flex;
+      align-items: center;
+    }
+    .van-cell--large {
+      height: 64 * @appSize;
+    }
+    .van-collapse-item__title {
+      padding: 0 6 * @appSize;
+      box-sizing: border-box;
 
+      .van-icon__image {
+        width: 110 * @appSize;
+        height: 60 * @appSize;
+
+        .van-image__img{
+          margin-top: -18 * @appSize;
+        }
+      }
+    }
     .van-collapse-item__wrapper {
       .van-collapse-item__content {
         background-color: #ddd;
+        padding: 0;
       }
     }
     .content {
       display: flex;
       border-bottom: 1px solid #ccc;
       margin-bottom: 5 * @appSize;
+
+      img{
+        width: 90 * @appSize;
+        height: 70 * @appSize;
+        margin: 8 * @appSize 20 * @appSize 0 8 * @appSize;
+      }
       .left {
         display: flex;
         flex: 1;
         flex-direction: column;
+        margin-bottom: 0;
 
         .check {
           color: orange;
