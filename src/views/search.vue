@@ -3,8 +3,8 @@
     <!-- 搜索组件 -->
     <SearchBar />
     <!-- 酒店列表 -->
-    <!-- <van-list> -->
-      <van-cell v-for="(item, index) in 10" :key="index" @click="toDetail">
+    <van-list>
+      <van-cell v-for="(item, index) in 10" :key="index" @click="toDetail" class="search-list">
         <div class="hotelList">
           <div class="leftImg">
             <img src="http://img4.imgtn.bdimg.com/it/u=3421948802,47894846&fm=26&gp=0.jpg" alt />
@@ -17,7 +17,7 @@
           </div>
         </div>
       </van-cell>
-    <!-- </van-list> -->
+    </van-list>
   </div>
 </template>
 
@@ -35,8 +35,8 @@ export default {
     };
   },
   methods: {
-    toDetail(){
-      this.$router.push('./Detail')
+    toDetail() {
+      this.$router.push("./Detail");
     }
     // onLoad() {
     //   // 异步更新数据
@@ -58,7 +58,7 @@ export default {
 
 <style lang="less" scoped>
 @appSize: 1/37.52rem;
-.van-list{
+.van-list {
   margin-top: 60 * @appSize;
 }
 .hotelList {
@@ -67,25 +67,25 @@ export default {
   display: flex;
 
   .leftImg {
-     display: flex;
-     margin-right: 10 * @appSize;
+    display: flex;
+    margin-right: 10 * @appSize;
     img {
       width: 110 * @appSize;
       height: 100%;
     }
   }
-  .rightText{
+  .rightText {
     font-size: 14 * @appSize;
-    .hotelName{
+    .hotelName {
       color: #000;
     }
-    .hotelXing{
+    .hotelXing {
       color: orange;
     }
-    .hotelHao{
+    .hotelHao {
       color: #ccc;
     }
-    .hotelAdr{
+    .hotelAdr {
       color: skyblue;
     }
   }

@@ -1,12 +1,12 @@
 <template>
   <div class="detail">
     <div class="top">
-      <van-icon name="arrow-left" @click="goBack" />
+      <van-icon name="arrow-left" @click="goBack" class="detail-leftIcon"/>
       <van-notice-bar
         text="我想去旅行邀您体验，更好的享受，祝您住店愉快"
         left-icon="volume-o"
-        background="#ecf9ff"
-        color="#1989fa"
+        background="#F5DEB3"
+        color="#FF8C00"
       />
     </div>
     <!-- 弹出层 -->
@@ -109,8 +109,8 @@ export default {
     };
   },
   methods: {
-    toMap(){
-      this.$router.push('./map')
+    toMap() {
+      this.$router.push("./map");
     },
     //点击返回到上一页面
     goBack() {
@@ -136,9 +136,16 @@ export default {
 .top {
   width: 100%;
   height: 40 * @appSize;
+  background-color: 	#F5DEB3;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 999;
 
-  .van-icon {
+  .detail-leftIcon {
     font-size: 22 * @appSize;
+    color: #fff;
     float: left;
     line-height: 40 * @appSize;
     margin: 0 10 * @appSize;
@@ -151,6 +158,7 @@ export default {
   }
 }
 .swipper {
+  margin-top: 40 * @appSize;
   padding: 10 * @appSize;
   box-sizing: border-box;
 }
