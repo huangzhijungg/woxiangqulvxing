@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- 头部 -->
-    <topBar />
+    <topBar :sendTitle="titelData"/>
     <!-- 订单信息 -->
     <div class="oderInfo">
       <span>订单信息</span>
@@ -71,7 +71,12 @@ import topBar from "../components/topBar";
 export default {
   components: {
     topBar
-  }
+  },
+  data() {
+    return {
+      titelData: "订单详情"
+    }
+  },
 };
 </script>
 

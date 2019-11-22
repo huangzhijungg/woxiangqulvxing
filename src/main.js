@@ -79,6 +79,16 @@ Vue.use(Image);
 import { CountDown } from 'vant';
 Vue.use(CountDown);
 
+import { Card } from 'vant';
+Vue.use(Card);
+
+import { Tag } from 'vant';
+Vue.use(Tag);
+
+import { RadioGroup, Radio } from 'vant';
+Vue.use(RadioGroup);
+Vue.use(Radio);
+
 Vue.config.productionTip = false
 
 new Vue({

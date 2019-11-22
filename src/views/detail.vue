@@ -72,7 +72,7 @@
         :name="index"
       >
         <div class="content" v-for="(item, index) in 3" :key="index">
-          <img src="http://img2.imgtn.bdimg.com/it/u=1165461476,304980642&fm=15&gp=0.jpg" alt="">
+          <!-- <img src="http://img2.imgtn.bdimg.com/it/u=1165461476,304980642&fm=15&gp=0.jpg" alt=""> -->
           <div class="left">
             <p>不含早 双床</p>
             <p>无预定条款</p>
@@ -243,16 +243,17 @@ export default {
       border-bottom: 1px solid #ccc;
       margin-bottom: 5 * @appSize;
 
-      img{
-        width: 90 * @appSize;
-        height: 70 * @appSize;
-        margin: 8 * @appSize 20 * @appSize 0 8 * @appSize;
-      }
+      // img{
+      //   width: 90 * @appSize;
+      //   height: 70 * @appSize;
+      //   margin: 8 * @appSize 20 * @appSize 0 8 * @appSize;
+      // }
       .left {
         display: flex;
         flex: 1;
         flex-direction: column;
         margin-bottom: 0;
+        margin-left: 10 * @appSize;
 
         .check {
           color: orange;

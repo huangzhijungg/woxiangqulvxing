@@ -63,12 +63,12 @@ export default {
       this.$dialog
         .confirm({
           title: "订单确认",
-          message: "是否确认提交订单"
+          message: "是否确认支付"
         })
         .then(() => {
           // on confirm
           console.log("支付成功");
-          this.$router.push("./orderInquiry");
+          this.$router.push("./oderInfo");
         })
         .catch(() => {
           // on cancel
