@@ -13,7 +13,10 @@
     </div>
     <div class="userInfo">
       <van-cell-group>
-        <van-field v-model="value" label="住房人" placeholder="姓名" />
+        <van-field v-model="value1" label="住房人1" placeholder="姓名"  right-icon="plus" @click-right-icon="clickShowInput"/>
+      </van-cell-group>
+      <van-cell-group v-show="showInput">
+        <van-field v-model="value2" label="住房人2" placeholder="姓名" />
       </van-cell-group>
       <van-cell-group>
         <van-field v-model="phonenumber" label="手机号" placeholder="请输入手机" maxlength="11" />
@@ -32,6 +35,7 @@
           placeholder="请输入留言"
           show-word-limit
         />
+        
       </van-cell-group>
       <van-divider :style="{ color: '#1989fa', borderColor: 'orange', padding: '0 16px' }"></van-divider>
       <van-notice-bar text="您的需求我们会及时通知酒店并尽量协助安排，但要视酒店情况，不能确保满足" left-icon="label-o" />
@@ -47,8 +51,9 @@
       </div>
     </div>
     <div class="money">
+
       <span>订单总额 ： ￥ 248</span>
-      <button @click="nextTo">去支付</button>
+      <button @click="nextTo">提交订单</button>
     </div>
   </div>
 </template>
@@ -57,17 +62,26 @@
 export default {
   data() {
     return {
-      value: "我想去",
-      phonenumber: "18679664380",
+      // 绑定输入框的值
+      value1: "我想去",
+      value2:'',
+      phonenumber: "18888880008",
       // 住房备注
       remark: "",
-      isShow: true
+      // 手机验证
+      isShow: true,
+      // 控制第二个输入框的显示与隐藏
+      showInput:false
     };
   },
   methods: {
     onClickLeft() {
       this.$router.back();
     },
+    clickShowInput(){
+      this.showInput = true
+    },
+    // 点击后验证手机号是否符合规则
     nextTo() {
       if (this.value == "" || this.phonenumber == "") {
         console.log(111);

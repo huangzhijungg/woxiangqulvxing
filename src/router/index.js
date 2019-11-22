@@ -43,6 +43,11 @@ const routes = [
     path: '/map',
     name: 'map',
     component: () => import('../views/map.vue')
+  },
+  {
+    path: '/orderInquiry',
+    name: 'orderInquiry',
+    component: () => import('../views/orderInquiry.vue')
   }
 ]
 

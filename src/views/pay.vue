@@ -1,10 +1,6 @@
 <template>
   <div class="pay">
-    <div class="topNav">
-      <van-icon name="arrow-left" class="iconBack" @click="goBack" />
-
-      <span class="text-pay">订单支付</span>
-    </div>
+    <topBar :sendTitle="titelData" />
     <p class="pay-title">订单信息</p>
     <div class="pay-orderInfo">
       <!-- <p class="pay-title">订单信息</p> -->
@@ -45,23 +41,38 @@
       </div>
     </div>
     <div class="pay-btn">
-        <van-button round type="info" size="large" color="orange" @click="goPayment">确认支付</van-button>
+      <van-button round type="info" size="large" color="orange" @click="goPayment">确认支付</van-button>
     </div>
   </div>
 </template>
 
 <script>
+import topBar from "../components/topBar";
+
 export default {
+  components: {
+    topBar
+  },
   data() {
-    return {};
+    return {
+      titelData: "订单支付"
+    };
   },
   methods: {
-    goBack() {
-      this.$router.back();
-    },
-    goPayment(){
-        console.log('支付成功');
-        
+    goPayment() {
+      this.$dialog
+        .confirm({
+          title: "订单确认",
+          message: "是否确认提交订单"
+        })
+        .then(() => {
+          // on confirm
+          console.log("支付成功");
+          this.$router.push("./orderInquiry");
+        })
+        .catch(() => {
+          // on cancel
+        });
     }
   }
 };
@@ -69,26 +80,26 @@ export default {
 
 <style lang="less" scoped>
 @appSize: 1/37.52rem;
-// .pay {
-//     // height: 1111 * @appSize;
-//   background-color: #ccc;
-// }
-.topNav {
-  height: 40 * @appSize;
-  background-color: orange;
-  display: flex;
-  align-items: center;
-  color: #fff;
+// // .pay {
+// //     // height: 1111 * @appSize; 
+// //   background-color: #ccc;
+// // }
+// .topNav {
+//   height: 40 * @appSize;
+//   background-color: orange;
+//   display: flex;
+//   align-items: center;
+//   color: #fff;
 
-  .iconBack {
-    font-size: 18 * @appSize;
-    margin-left: 10 * @appSize;
-    margin-right: 20 * @appSize;
-  }
-  .text-pay {
-    font-size: 14 * @appSize;
-  }
-}
+//   .iconBack {
+//     font-size: 18 * @appSize;
+//     margin-left: 10 * @appSize;
+//     margin-right: 20 * @appSize;
+//   }
+//   .text-pay {
+//     font-size: 14 * @appSize;
+//   }
+// }
 .pay-title {
   height: 30 * @appSize;
   background-color: #ccc;
@@ -156,8 +167,8 @@ export default {
     margin-right: 10 * @appSize;
   }
 }
-.pay-btn{
-    padding: 30 * @appSize;
-    box-sizing: border-box;
+.pay-btn {
+  padding: 30 * @appSize;
+  box-sizing: border-box;
 }
 </style>

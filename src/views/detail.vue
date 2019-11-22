@@ -44,7 +44,7 @@
 
     <div class="hotelInfo">
       <div class="special">
-        <span class="tese">酒店名称：济州肯辛顿酒店</span>
+        <span class="tese">酒店名称：维也纳国际酒店</span>
         <span @click="toMap">
           地图
           <van-icon name="arrow" class="rightarrow" />
@@ -205,7 +205,7 @@ export default {
   }
 }
 .van-collapse {
-  background-color: #ddd;
+  background-color:#fff;
   padding: 2 * @appSize;
   box-sizing: border-box;
   // van-cell van-cell--clickable van-cell--large
