@@ -1,14 +1,17 @@
-
 <template>
   <!-- 时间选择组件
 amterasu
 2018-3-13 -->
   <div class="am-calendar">
     <transition name="am-calendar-mask">
-      <div class="am-calendar-backdrop" @click="successCallback" v-show="showCalendar"></div>
+      <!-- <div class="am-calendar-backdrop" @click="successCallback" v-show="showCalendar"></div> -->
     </transition>
     <transition name="am-calendar-content">
-      <div class="am-calendar-content am-calendar-content-transition" v-show="showCalendar" ref="amCalendar">
+      <div
+        class="am-calendar-content am-calendar-content-transition"
+        v-show="showCalendar"
+        ref="amCalendar"
+      >
         <div class="am-calendar-title">
           <span class="close" @click="closeCalendar">
             <span class="iconfont icon-xdn-data-close-big">关闭</span>
@@ -25,18 +28,44 @@ amterasu
           <span>五</span>
           <span class="weekend">六</span>
         </div>
-        <div class="month-bar-fixed" id="fixedBarEle" ref="fixedBar" :style="{'opacity': fixedBarOpacity}">{{ fixedMonthbar }}</div>
-        <div class="scroll-panel-wrapper" id="scroll-panel-wrapper" ref="scroll">
+        <div
+          class="month-bar-fixed"
+          id="fixedBarEle"
+          ref="fixedBar"
+          :style="{ opacity: fixedBarOpacity }"
+        >
+          {{ fixedMonthbar }}
+        </div>
+        <div
+          class="scroll-panel-wrapper"
+          id="scroll-panel-wrapper"
+          ref="scroll"
+        >
           <div class="scroll-date-wrapper" id="scroll-panel">
-            <div class="month-panel" v-for="(item, index) of date" :key="index" :data-index="index" ref="months">
+            <div
+              class="month-panel"
+              v-for="(item, index) of date"
+              :key="index"
+              :data-index="index"
+              ref="months"
+            >
               <div class="month-bar">{{ item.month }}</div>
               <ul class="month-list-item">
-                <li @click.stop="selectedFunc" v-for="(day, index) of item.days" :key="index" :data-sec="new Date(day).getTime() || ''" :data-date-format="day | convertDateFormatValue" :class="{
+                <li
+                  @click.stop="selectedFunc"
+                  v-for="(day, index) of item.days"
+                  :key="index"
+                  :data-sec="new Date(day).getTime() || ''"
+                  :data-date-format="day | convertDateFormatValue"
+                  :class="{
                     'selected-start': isStartDate == new Date(day).getTime(),
                     'selected-end': isEndDate == new Date(day).getTime(),
-                    'selected-line': isStartDate < new Date(day).getTime() && new Date(day).getTime() < isEndDate,
-                    'disabled': disabled(new Date(day).getTime())
-                  }">
+                    'selected-line':
+                      isStartDate < new Date(day).getTime() &&
+                      new Date(day).getTime() < isEndDate,
+                    disabled: disabled(new Date(day).getTime())
+                  }"
+                >
                   <span>{{ day | convertDateFormatDay }}</span>
                 </li>
               </ul>
@@ -49,8 +78,8 @@ amterasu
 </template>
 
 <script>
-import util from "./util";
-import BScroll from "better-scroll";
+import util from './util'
+import BScroll from 'better-scroll'
 export default {
   props: {
     showCalendar: {
@@ -61,12 +90,12 @@ export default {
       type: Object,
       default() {
         return {
-          start: "", // 开始日期
-          end: "", // 结束日期
-          maxDate: "12m", // 月份跨度
-          startDate: "", // 默认选中的开始日期,
-          endDate: "" // 默认选中的结束日期
-        };
+          start: '', // 开始日期
+          end: '', // 结束日期
+          maxDate: '12m', // 月份跨度
+          startDate: '0', // 默认选中的开始日期,
+          endDate: '0' // 默认选中的结束日期
+        }
       }
     },
     isDoubleCheck: {
@@ -81,165 +110,166 @@ export default {
       isStartDate: util.dateConvertSec(this.options.startDate),
       isEndDate: util.dateConvertSec(this.options.endDate),
       fixedBarOpacity: 1,
-      fixedMonthbar: ""
-    };
+      fixedMonthbar: ''
+    }
   },
   created() {
     if (this.isStartDate === this.isEndDate) {
-      this.isEndDate = 0;
+      this.isEndDate = 0
     }
   },
   methods: {
     closeCalendar() {
-      this.$emit("update:showCalendar", false);
+      this.$emit('update:showCalendar', false)
     },
     selectedFunc(event) {
-      const currentTarget = event.currentTarget;
-      if (currentTarget.classList.contains("disabled")) return;
-      let sec = Number(currentTarget.dataset.sec);
+      const currentTarget = event.currentTarget
+      if (currentTarget.classList.contains('disabled')) return
+      let sec = Number(currentTarget.dataset.sec)
       if (this.options.isDoubleCheck) {
         if (this.isStartDate) {
           if (this.isEndDate) {
-            this.isStartDate = sec;
-            this.isEndDate = "";
+            this.isStartDate = sec
+            this.isEndDate = ''
           } else {
             if (this.isStartDate === sec) {
-              this.isStartDate = sec;
-              return;
+              this.isStartDate = sec
+              return
             }
             if (sec < this.isStartDate) {
-              [this.isStartDate, this.isEndDate] = [sec, this.isStartDate];
+              ;[this.isStartDate, this.isEndDate] = [sec, this.isStartDate]
             } else {
-              this.isEndDate = sec;
+              this.isEndDate = sec
             }
           }
         } else {
-          this.isStartDate = sec;
+          this.isStartDate = sec
         }
       } else {
-        this.isStartDate = sec;
+        this.isStartDate = sec
       }
     },
     successCallback() {
       let start = this.isStartDate
-        ? util.dateFormat("yyyy-MM-dd", new Date(this.isStartDate))
-        : undefined;
+        ? util.dateFormat('yyyy-MM-dd', new Date(this.isStartDate))
+        : undefined
       let end = this.isEndDate
-        ? util.dateFormat("yyyy-MM-dd", new Date(this.isEndDate))
-        : start;
-      this.$emit("changeDate", start, end);
-      this.$emit("update:showCalendar", false);
+        ? util.dateFormat('yyyy-MM-dd', new Date(this.isEndDate))
+        : start
+      this.$emit('changeDate', start, end)
+      this.$emit('update:showCalendar', false)
+
     },
     disabled(val) {
       if (this.options.start && this.options.end) {
         return (
           val < util.dateConvertSec(this.options.start) ||
           val > util.dateConvertSec(this.options.end)
-        );
+        )
       }
       if (this.options.start && this.options.maxDate && !this.options.end) {
-        return val < util.dateConvertSec(this.options.start);
+        return val < util.dateConvertSec(this.options.start)
       }
-      return val < this.todaySec;
+      return val < this.todaySec
     }
   },
   mounted() {
-    this.$watch("showCalendar", val => {
+    this.$watch('showCalendar', val => {
       if (val) {
         this.$nextTick(() => {
           this.$refs.amCalendar.addEventListener(
-            "touchmove",
+            'touchmove',
             function(ev) {
-              ev.preventDefault();
+              ev.preventDefault()
             },
             false
-          );
-          let months = this.$refs.months;
-          let panelHeightArr = [];
-          this.fixedMonthbar = this.date[0].month;
+          )
+          let months = this.$refs.months
+          let panelHeightArr = []
+          this.fixedMonthbar = this.date[0].month
           for (let i = 0; i < months.length; i++) {
-            panelHeightArr.push(months[i].clientHeight);
+            panelHeightArr.push(months[i].clientHeight)
           }
-          let panelAbsPosi = [];
-          let tmpArr = [];
+          let panelAbsPosi = []
+          let tmpArr = []
           for (let i = 0; i < panelHeightArr.length; i++) {
-            tmpArr.push(panelHeightArr[i]);
+            tmpArr.push(panelHeightArr[i])
             panelAbsPosi[i] = tmpArr.reduce((a, b) => {
-              return a + b;
-            });
+              return a + b
+            })
           }
           this.scroll = new BScroll(this.$refs.scroll, {
             probeType: 3,
             preventDefault: false
-          });
+          })
           if (this.options.scrollEnd) {
-            this.fixedMonthbar = this.date[this.date.length - 1].month;
-            this.scroll.scrollTo(0, -panelAbsPosi[panelHeightArr.length - 2]);
+            this.fixedMonthbar = this.date[this.date.length - 1].month
+            this.scroll.scrollTo(0, -panelAbsPosi[panelHeightArr.length - 2])
           }
-          this.scroll.on("scroll", pos => {
-            fixedBar(this, panelAbsPosi, pos);
-          });
-        });
+          this.scroll.on('scroll', pos => {
+            fixedBar(this, panelAbsPosi, pos)
+          })
+        })
       } else {
-        this.scroll.destroy();
+        this.scroll.destroy()
       }
-    });
+    })
 
     function fixedBar(scope, panelAbsPosi, pos) {
       if (pos.y > 0) {
-        scope.fixedBarOpacity = 0;
+        scope.fixedBarOpacity = 0
       } else {
-        scope.fixedBarOpacity = 1;
-        scope.$refs.fixedBar.style.transform = "translate(0, 0)";
+        scope.fixedBarOpacity = 1
+        scope.$refs.fixedBar.style.transform = 'translate(0, 0)'
       }
-      let y = Math.abs(pos.y || 0);
+      let y = Math.abs(pos.y || 0)
       if (y === 0) {
-        scope.$refs.fixedBar.style.WebkitTransform = "translate(0, 0)";
-        scope.$refs.fixedBar.style.transform = "translate(0, 0)";
+        scope.$refs.fixedBar.style.WebkitTransform = 'translate(0, 0)'
+        scope.$refs.fixedBar.style.transform = 'translate(0, 0)'
       }
-      let fixedBarHeight = scope.$refs.fixedBar.clientHeight;
+      let fixedBarHeight = scope.$refs.fixedBar.clientHeight
       for (let i = 0; i < panelAbsPosi.length; i++) {
         if (
           y > panelAbsPosi[i] - fixedBarHeight &&
           y < panelAbsPosi[i + 1] - fixedBarHeight
         ) {
-          let heightDiffer = panelAbsPosi[i] - fixedBarHeight;
+          let heightDiffer = panelAbsPosi[i] - fixedBarHeight
           if (y >= heightDiffer && y - heightDiffer <= fixedBarHeight) {
             scope.$refs.fixedBar.style.WebkitTransform =
-              "translate(0," + (heightDiffer - y) + "px)";
+              'translate(0,' + (heightDiffer - y) + 'px)'
             scope.$refs.fixedBar.style.transform =
-              "translate(0," + (heightDiffer - y) + "px)";
-            scope.panelState = i;
+              'translate(0,' + (heightDiffer - y) + 'px)'
+            scope.panelState = i
           } else if (y - heightDiffer > fixedBarHeight) {
-            scope.$refs.fixedBar.style.WebkitTransform = "translate(0, 0)";
-            scope.$refs.fixedBar.style.transform = "translate(0, 0)";
-            scope.panelState = i + 1;
+            scope.$refs.fixedBar.style.WebkitTransform = 'translate(0, 0)'
+            scope.$refs.fixedBar.style.transform = 'translate(0, 0)'
+            scope.panelState = i + 1
           }
         }
       }
       if (y < panelAbsPosi[0] - fixedBarHeight) {
-        scope.panelState = 0;
+        scope.panelState = 0
       }
-      scope.fixedMonthbar = scope.date[scope.panelState].month;
+      scope.fixedMonthbar = scope.date[scope.panelState].month
     }
   },
   filters: {
     convertDateFormatDay(val) {
-      if (val !== "") {
-        return new Date(val).getDate();
+      if (val !== '') {
+        return new Date(val).getDate()
       } else {
-        return "";
+        return ''
       }
     },
     convertDateFormatValue(date) {
-      if (date !== "") {
-        return util.dateFormat("yyyy-MM-dd", date);
+      if (date !== '') {
+        return util.dateFormat('yyyy-MM-dd', date)
       } else {
-        return "";
+        return ''
       }
     }
   }
-};
+}
 </script>
 
 <style lang="less" scoped>

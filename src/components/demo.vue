@@ -10,46 +10,69 @@
     <!-- 选择两个 -->
     <div class="mu-text-field">
       <div class="mu-text-field-content">
-        <input class="mu-text-field-input" placeholder="选择入店和离店时间" @click="showdateDouble = true" v-model="showDouble" readonly="readonly">
-        <div><hr class="mu-text-field-line"> <hr class="mu-text-field-focus-line"></div>
+        <input
+          class="mu-text-field-input"
+          placeholder="选择入店和离店时间"
+          @click="showdateDouble = true"
+          v-model="showDouble"
+          readonly="readonly"
+        />
+        <div>
+          <span>共{{ isOne }}晚</span>
+          <hr class="mu-text-field-line" />
+          <hr class="mu-text-field-focus-line" />
+        </div>
       </div>
     </div>
-    <date :showCalendar.sync='showdateSingle' maxDate="12m" :options="dateOptionsSingle" @changeDate="changeDateSingle"></date>
-    <date :showCalendar.sync='showdateDouble' maxDate="12m" :options="dateOptionsDouble" @changeDate="changeDateDouble"></date>
+    <date
+      :showCalendar.sync="showdateSingle"
+      maxDate="12m"
+      :options="dateOptionsSingle"
+      @changeDate="changeDateSingle"
+    ></date>
+    <date
+      :showCalendar.sync="showdateDouble"
+      maxDate="12m"
+      :options="dateOptionsDouble"
+      @changeDate="changeDateDouble"
+    ></date>
   </div>
-
 </template>
 
+let days= console.log(days)
+
 <script>
-import date from "./datepicker/datePicker";
+import date from './datepicker/datePicker'
 import FastClick from 'fastclick'
-FastClick.attach(document.body);
+import dayjs from 'dayjs'
+FastClick.attach(document.body)
 export default {
   data() {
     return {
+      days: ' ',
       showdateSingle: false,
       showdateDouble: false,
-      single: "",
-      double: "",
-      startSingle: "",
-      startDouble: "",
-      endDouble: "",
+      single: '',
+      double: '',
+      startSingle: '',
+      startDouble: '',
+      endDouble: '',
       dateOptionsDouble: {
         // scrollEnd: true, // 滚到最后
         // start: "2018-01-01",
-        maxDate: "24m", // 月份跨度
+        maxDate: '24m', // 月份跨度
         isDoubleCheck: true,
         // 获取当前日期,不能选择今天之前的日期
         startDate: this.formatDate(new Date().getTime())
       },
       dateOptionsSingle: {
         // scrollEnd: true, // 滚到最后
-        start: "2018-01-01",
-        maxDate: "24m", // 月份跨度
-        isDoubleCheck: false,
+        start: '2018-01-01',
+        maxDate: '24m', // 月份跨度
+        isDoubleCheck: false
         // startDate: this.formatDate(new Date().getTime())
       }
-    };
+    }
   },
   computed: {
     // showSingle() {
@@ -57,14 +80,16 @@ export default {
     // },
     // 输入框绑定的值
     showDouble() {
-      if(this.startDouble && this.endDouble){
-        return this.startDouble + ` 至  ` + this.endDouble 
-      }else if (this.startDouble && !this.endDouble){
+      if (this.startDouble && this.endDouble) {
+        return this.startDouble + ` 至  ` + this.endDouble
+      } else if (this.startDouble && !this.endDouble) {
         return this.startDouble
-      }
-      else{
+      } else {
         return ''
       }
+    },
+    isOne() {
+      return dayjs(this.endDouble).diff(dayjs(this.startDouble), 'day') || 0
     }
   },
   components: {
@@ -72,21 +97,21 @@ export default {
   },
   methods: {
     changeDateSingle(start, end) {
-      this.startSingle = start;
+      this.startSingle = start
     },
     changeDateDouble(start, end) {
-      this.startDouble = start;
-      this.endDouble = end;
+      this.startDouble = start
+      this.endDouble = end
     },
     formatDate(timestamp, formats) {
-      formats = formats || "Y-M-D";
-      var myDate = timestamp ? new Date(timestamp) : new Date();
-      var year = myDate.getFullYear();
-      var month = formatDigit(myDate.getMonth() + 1);
-      var day = formatDigit(myDate.getDate());
-      var hour = formatDigit(myDate.getHours());
-      var minute = formatDigit(myDate.getMinutes());
-      var second = formatDigit(myDate.getSeconds());
+      formats = formats || 'Y-M-D'
+      var myDate = timestamp ? new Date(timestamp) : new Date()
+      var year = myDate.getFullYear()
+      var month = formatDigit(myDate.getMonth() + 1)
+      var day = formatDigit(myDate.getDate())
+      var hour = formatDigit(myDate.getHours())
+      var minute = formatDigit(myDate.getMinutes())
+      var second = formatDigit(myDate.getSeconds())
       return formats.replace(/Y|M|D|h|m|s/g, function(matches) {
         return {
           Y: year,
@@ -95,15 +120,15 @@ export default {
           h: hour,
           m: minute,
           s: second
-        }[matches];
-      });
+        }[matches]
+      })
       // 小于10补0
       function formatDigit(n) {
-        return n.toString().replace(/^(\d)$/, "0$1");
+        return n.toString().replace(/^(\d)$/, '0$1')
       }
     }
   }
-};
+}
 </script>
 
 <style lang="less" scoped>
