@@ -25,7 +25,7 @@
       <van-cell-group v-show="showInput2">
         <van-field v-model="value2" label="住房人2" placeholder="姓名" />
       </van-cell-group>
-      
+
       <van-cell-group v-show="showInput3">
         <van-field v-model="value3" label="住房人3" placeholder="姓名" />
       </van-cell-group>
@@ -81,7 +81,7 @@ export default {
   },
   data() {
     return {
-      radio: '1',
+      radio: "1",
       // 绑定输入框的值
       value1: "我想去",
       value2: "",
@@ -97,28 +97,28 @@ export default {
       showInput3: false,
       showInput4: false,
       titelData: "订单填写",
-      name1:1,
-      name2:2,
-      name3:3,
-      name4:4,
+      name1: 1,
+      name2: 2,
+      name3: 3,
+      name4: 4
     };
   },
   methods: {
     // 选择房间数
-    checkRoom(name){
-      if(name==2){
+    checkRoom(name) {
+      if (name == 2) {
         this.showInput2 = true;
         this.showInput3 = false;
         this.showInput4 = false;
-      }else if(name==3){
+      } else if (name == 3) {
         this.showInput2 = true;
         this.showInput3 = true;
         this.showInput4 = false;
-      }else if(name==4){
+      } else if (name == 4) {
         this.showInput2 = true;
         this.showInput3 = true;
         this.showInput4 = true;
-      }else{
+      } else {
         this.showInput2 = false;
         this.showInput3 = false;
         this.showInput4 = false;
@@ -132,12 +132,18 @@ export default {
     },
     // 点击后验证手机号是否符合规则
     nextTo() {
-      if (this.value == "" || this.phonenumber == "") {
+      if (this.value1 == "" || this.phonenumber == "") {
         console.log(111);
         this.$toast({
           message: "姓名或电话不能为空",
           icon: "warning"
         });
+        // if (name == 2 || this.value2 == "") {
+        //   this.$toast({
+        //     message: "姓名或电话不能为空",
+        //     icon: "warning"
+        //   });
+        // }
       } else {
         let re = /^1(3|4|5|6|7|8|9)\d{9}$/;
         // 正则，验证手机号输入是否正确
@@ -147,7 +153,7 @@ export default {
         // isShow获取之后返回到v-if进行判断是消失还是出现
         if (this.isShow) {
           this.$notify({
-            type: "success",
+            type: "warning",
             message: "订单提交成功",
             duration: 1000
           });
@@ -202,7 +208,7 @@ export default {
     color: #000;
   }
 }
-.van-radio-group{
+.van-radio-group {
   display: flex;
   justify-content: space-around;
   margin-bottom: 6 * @appSize;
@@ -219,6 +225,7 @@ export default {
   padding: 10 * @appSize;
   box-sizing: border-box;
   background-color: #ccc;
+  margin-bottom: 40 * @appSize;
 
   .ss {
     margin-bottom: 5 * @appSize;
@@ -244,6 +251,8 @@ export default {
   right: 0;
   left: 0;
   background-color: #fff;
+  // margin-top: 10px;
+  z-index: 999;
 
   span {
     color: orange;

@@ -16,6 +16,7 @@
         <van-field v-model="hotelName" placeholder="酒店名称" left-icon="hotel-o" />
       </van-cell-group>
 
+      <!-- 城市输入框 -->
       <van-cell-group>
         <van-field
           v-model="cityName"
@@ -25,6 +26,7 @@
         />
       </van-cell-group>
 
+      <!-- 城市弹出层 -->
       <van-popup v-model="showPicker" position="bottom">
         <van-picker
           show-toolbar
@@ -34,8 +36,8 @@
           :default-index="0"
         />
       </van-popup>
+      <!-- <smart-input v-bind="provinceList" @collect="collectProvince"></smart-input> -->
 
-      <!-- <datePicker /> -->
       <demo />
 
       <van-button
@@ -48,20 +50,20 @@
     <!-- 数据列表 -->
     <div class="list">
       <!-- <van-list v-model="loading" :finished="finished" finished-text="没有更多了"> -->
-        <van-cell v-for="(item, index) in 8" :key="index" @click="toDetail">
-          <img
-            src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1546595911,624006547&fm=26&gp=0.jpg"
-            alt
-          />
-          <div class="left">
-            <div class="bold">龙浦大酒店</div>
-            <div class="address">杭州 &nbsp;&nbsp;富阳区&nbsp;&nbsp;龙浦街道196号</div>
-            <div class="address">二星级及以下/经济</div>
-          </div>
-          <div class="right">
-            <span>￥ 560起</span>
-          </div>
-        </van-cell>
+      <van-cell v-for="(item, index) in 8" :key="index" @click="toDetail">
+        <img
+          src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1546595911,624006547&fm=26&gp=0.jpg"
+          alt
+        />
+        <div class="left">
+          <div class="bold">龙浦大酒店</div>
+          <div class="address">杭州 &nbsp;&nbsp;富阳区&nbsp;&nbsp;龙浦街道196号</div>
+          <div class="address">二星级及以下/经济</div>
+        </div>
+        <div class="right">
+          <span>￥ 560起</span>
+        </div>
+      </van-cell>
       <!-- </van-list> -->
     </div>
   </div>
@@ -69,6 +71,7 @@
 
 <script>
 import demo from "../components/demo";
+// import Vue from 'vue'
 
 export default {
   components: {
@@ -86,12 +89,11 @@ export default {
       // loading: false,
       // finished: false,
       showPicker: false,
-      columns: ['北京', '上海', '广州', '深圳']
+      columns: ["北京", "上海", "广州", "深圳"],
     };
   },
-
   methods: {
-     onConfirm(value) {
+    onConfirm(value) {
       this.cityName = value;
       this.showPicker = false;
     },
@@ -101,6 +103,7 @@ export default {
     },
     // 点击搜索按钮去到搜索页面并发送请求获取数据
     searchInfo() {
+      
       this.$router.push("./search");
     }
   }
@@ -124,6 +127,19 @@ export default {
 <style lang="less" scoped>
 // 定义变量,方便适配
 @appSize: 1/37.52rem;
+ul {
+  border: 1px solid red;
+}
+li {
+  height: 40px;
+  line-height: 40px;
+  border-bottom: 1px solid #ddd;
+}
+.bindingbtn input {
+  border: 1px solid #333;
+  height: 44px;
+  line-height: 44px;
+}
 .topBar {
   width: 100%;
   height: 40 * @appSize;
@@ -181,6 +197,7 @@ export default {
   width: 70%;
   height: 40 * @appSize;
   border-radius: 6 * @appSize;
+  line-height: 40 * @appSize;
 }
 .list {
   .van-cell {

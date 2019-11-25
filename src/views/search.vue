@@ -59,7 +59,7 @@ export default {
 <style lang="less" scoped>
 @appSize: 1/37.52rem;
 .van-list {
-  margin-top: 60 * @appSize;
+  margin-top: 130 * @appSize;
 }
 .hotelList {
   width: 100%;

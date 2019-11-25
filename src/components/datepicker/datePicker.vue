@@ -4,7 +4,7 @@ amterasu
 2018-3-13 -->
   <div class="am-calendar">
     <transition name="am-calendar-mask">
-      <!-- <div class="am-calendar-backdrop" @click="successCallback" v-show="showCalendar"></div> -->
+      <div class="am-calendar-backdrop" @click="successCallback" v-show="showCalendar"></div>
     </transition>
     <transition name="am-calendar-content">
       <div

@@ -5,7 +5,7 @@
         <input class="mu-text-field-input" placeholder="只选择一个" @click="showdateSingle = true" v-model="showSingle" readonly="readonly">
         <div><hr class="mu-text-field-line"> <hr class="mu-text-field-focus-line"></div>
       </div>
-    </div> -->
+    </div>-->
 
     <!-- 选择两个 -->
     <div class="mu-text-field">
@@ -17,13 +17,12 @@
           v-model="showDouble"
           readonly="readonly"
         />
-        <div>
-          <span>共{{ isOne }}晚</span>
-          <hr class="mu-text-field-line" />
-          <hr class="mu-text-field-focus-line" />
-        </div>
+        <span class="numdays">共&nbsp;{{ isOne }} &nbsp;晚</span>
       </div>
+      <van-divider :style="{ color: '#FF9966', borderColor: '#FF9966', padding: '0 16px' }">请选择入住时间</van-divider>
     </div>
+    <!-- 分割线 -->
+
     <date
       :showCalendar.sync="showdateSingle"
       maxDate="12m"
@@ -42,37 +41,40 @@
 let days= console.log(days)
 
 <script>
-import date from './datepicker/datePicker'
-import FastClick from 'fastclick'
-import dayjs from 'dayjs'
-FastClick.attach(document.body)
+// 导入日期组件
+import date from "./datepicker/datePicker";
+// 处理移动端点击事件的300ms延迟
+import FastClick from "fastclick";
+// 日期控件
+import dayjs from "dayjs";
+FastClick.attach(document.body);
 export default {
   data() {
     return {
-      days: ' ',
+      days: " ",
       showdateSingle: false,
       showdateDouble: false,
-      single: '',
-      double: '',
-      startSingle: '',
-      startDouble: '',
-      endDouble: '',
+      single: "",
+      double: "",
+      startSingle: "",
+      startDouble: "",
+      endDouble: "",
       dateOptionsDouble: {
         // scrollEnd: true, // 滚到最后
-        // start: "2018-01-01",
-        maxDate: '24m', // 月份跨度
+        maxDate: "24m", // 月份跨度
         isDoubleCheck: true,
         // 获取当前日期,不能选择今天之前的日期
         startDate: this.formatDate(new Date().getTime())
       },
       dateOptionsSingle: {
         // scrollEnd: true, // 滚到最后
-        start: '2018-01-01',
-        maxDate: '24m', // 月份跨度
+        maxDate: "24m", // 月份跨度
         isDoubleCheck: false
-        // startDate: this.formatDate(new Date().getTime())
       }
-    }
+    };
+  },
+  created(){
+    this.startDouble = 2019-11-25 + `至` + 2019-11-26
   },
   computed: {
     // showSingle() {
@@ -81,37 +83,38 @@ export default {
     // 输入框绑定的值
     showDouble() {
       if (this.startDouble && this.endDouble) {
-        return this.startDouble + ` 至  ` + this.endDouble
+        return this.startDouble + ` 至  ` + this.endDouble;
       } else if (this.startDouble && !this.endDouble) {
-        return this.startDouble
+        return this.startDouble;
       } else {
-        return ''
+        return "";
       }
     },
     isOne() {
-      return dayjs(this.endDouble).diff(dayjs(this.startDouble), 'day') || 0
+      return dayjs(this.endDouble).diff(dayjs(this.startDouble), "day") || 0;
     }
   },
+
   components: {
     date
   },
   methods: {
     changeDateSingle(start, end) {
-      this.startSingle = start
+      this.startSingle = start;
     },
     changeDateDouble(start, end) {
-      this.startDouble = start
-      this.endDouble = end
+      this.startDouble = start;
+      this.endDouble = end;
     },
     formatDate(timestamp, formats) {
-      formats = formats || 'Y-M-D'
-      var myDate = timestamp ? new Date(timestamp) : new Date()
-      var year = myDate.getFullYear()
-      var month = formatDigit(myDate.getMonth() + 1)
-      var day = formatDigit(myDate.getDate())
-      var hour = formatDigit(myDate.getHours())
-      var minute = formatDigit(myDate.getMinutes())
-      var second = formatDigit(myDate.getSeconds())
+      formats = formats || "Y-M-D";
+      var myDate = timestamp ? new Date(timestamp) : new Date();
+      var year = myDate.getFullYear();
+      var month = formatDigit(myDate.getMonth() + 1);
+      var day = formatDigit(myDate.getDate());
+      var hour = formatDigit(myDate.getHours());
+      var minute = formatDigit(myDate.getMinutes());
+      var second = formatDigit(myDate.getSeconds());
       return formats.replace(/Y|M|D|h|m|s/g, function(matches) {
         return {
           Y: year,
@@ -120,15 +123,15 @@ export default {
           h: hour,
           m: minute,
           s: second
-        }[matches]
-      })
+        }[matches];
+      });
       // 小于10补0
       function formatDigit(n) {
-        return n.toString().replace(/^(\d)$/, '0$1')
+        return n.toString().replace(/^(\d)$/, "0$1");
       }
     }
   }
-}
+};
 </script>
 
 <style lang="less" scoped>
@@ -142,6 +145,7 @@ export default {
   position: relative;
   color: rgba(0, 0, 0, 0.54);
   margin-bottom: 8 * @appSize;
+  background-color: #fff;
 }
 
 .mu-text-field.full-width {
@@ -175,10 +179,23 @@ export default {
 }
 
 .mu-text-field-content {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   height: 100%;
   padding-bottom: 12 * @appSize;
   padding-top: 4 * @appSize;
+
+  .numdays {
+    width: 80 * @appSize;
+    height: 100%;
+    color: orange;
+    font-weight: bold;
+    font-style: italic;
+  }
+}
+.van-divider {
+  margin: 0;
 }
 
 .mu-text-field.disabled .mu-text-field-content {
@@ -202,15 +219,15 @@ export default {
   box-shadow: none;
   display: block;
   padding: 0;
-  margin: 0;
-  width: 100%;
+  margin-left: 20 * @appSize;
+  flex: 1;
   height: 32 * @appSize;
   font-style: inherit;
   font-variant: inherit;
   font-weight: inherit;
   font-stretch: inherit;
   font-size: inherit;
-  color: rgba(0, 0, 0, 0.87);
+  color: orange;
   font-family: inherit;
   position: relative;
   text-indent: 8 * @appSize;
@@ -245,15 +262,15 @@ export default {
   color: inherit;
 }
 
-.mu-text-field-line {
-  margin: 0;
-  height: 1 * @appSize;
-  border: none;
-  background-color: rgba(0, 0, 0, 0.12);
-  left: 0;
-  right: 0;
-  position: absolute;
-}
+// .mu-text-field-line {
+//   margin: 0;
+//   height: 1 * @appSize;
+//   border: none;
+//   background-color: rgba(0, 0, 0, 0.12);
+//   left: 0;
+//   right: 0;
+//   position: absolute;
+// }
 
 .mu-text-field.has-icon .mu-text-field-line {
   left: 56 * @appSize;
@@ -265,24 +282,24 @@ export default {
   border-bottom: 2px dotted rgba(0, 0, 0, 0.38);
 }
 
-.mu-text-field-focus-line {
-  margin: 0;
-  height: 2 * @appSize;
-  border: none;
-  background-color: #7e57c2;
-  position: absolute;
-  left: 0;
-  right: 0;
-  margin-top: -1 * @appSize;
-  -webkit-transform: scaleX(0);
-  -ms-transform: scaleX(0);
-  transform: scaleX(0);
-  -webkit-transition: -webkit-transform 0.45s cubic-bezier(0.23, 1, 0.32, 1);
-  transition: -webkit-transform 0.45s cubic-bezier(0.23, 1, 0.32, 1);
-  transition: transform 0.45s cubic-bezier(0.23, 1, 0.32, 1);
-  transition: transform 0.45s cubic-bezier(0.23, 1, 0.32, 1),
-    -webkit-transform 0.45s cubic-bezier(0.23, 1, 0.32, 1);
-}
+// .mu-text-field-focus-line {
+//   margin: 0;
+//   height: 2 * @appSize;
+//   border: none;
+//   background-color: #7e57c2;
+//   position: absolute;
+//   left: 0;
+//   right: 0;
+//   margin-top: -1 * @appSize;
+//   -webkit-transform: scaleX(0);
+//   -ms-transform: scaleX(0);
+//   transform: scaleX(0);
+//   -webkit-transition: -webkit-transform 0.45s cubic-bezier(0.23, 1, 0.32, 1);
+//   transition: -webkit-transform 0.45s cubic-bezier(0.23, 1, 0.32, 1);
+//   transition: transform 0.45s cubic-bezier(0.23, 1, 0.32, 1);
+//   transition: transform 0.45s cubic-bezier(0.23, 1, 0.32, 1),
+//     -webkit-transform 0.45s cubic-bezier(0.23, 1, 0.32, 1);
+// }
 
 .mu-text-field.has-icon .mu-text-field-focus-line {
   left: 56 * @appSize;
