@@ -274,7 +274,6 @@ export default {
     margin-right: 20 * @appSize;
   }
   .text {
-    // text-align: center;
     font-size: 14 * @appSize;
   }
 }
@@ -283,6 +282,7 @@ export default {
   padding: 10 * @appSize;
   box-sizing: border-box;
   margin-bottom: 10 * @appSize;
+  margin-top: 40 * @appSize;
 
   p {
     margin-bottom: 5 * @appSize;

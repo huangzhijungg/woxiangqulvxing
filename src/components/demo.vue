@@ -8,18 +8,22 @@
     </div>-->
 
     <!-- 选择两个 -->
-    <div class="mu-text-field">
-      <div class="mu-text-field-content">
-        <input
-          class="mu-text-field-input"
-          placeholder="选择入店和离店时间"
-          @click="showdateDouble = true"
-          v-model="showDouble"
-          readonly="readonly"
-        />
-        <span class="numdays">共&nbsp;{{ isOne }} &nbsp;晚</span>
+    <div class="demo-slecetDate">
+      <div class="mu-text-field">
+        <div class="mu-text-field-content">
+          <input
+            class="mu-text-field-input"
+            placeholder="选择入店和离店时间"
+            @click="showdateDouble = true"
+            v-model="showDouble"
+            readonly="readonly"
+          />
+          <span class="numdays">共&nbsp;{{ isOne }} &nbsp;晚</span>
+        </div>
+        <van-divider
+          :style="{ color: '#FF9966', borderColor: '#FF9966', padding: '0 16px' }"
+        >请选择入住时间</van-divider>
       </div>
-      <van-divider :style="{ color: '#FF9966', borderColor: '#FF9966', padding: '0 16px' }">请选择入住时间</van-divider>
     </div>
     <!-- 分割线 -->
 
@@ -81,7 +85,7 @@ export default {
     // 输入框绑定的值
     showDouble() {
       if (this.startDouble && this.endDouble) {
-        return this.startDouble + ` 至  ` + this.endDouble;
+        return `入店:` + this.startDouble + ` 至  ` + this.endDouble + `离店`;
       } else if (this.startDouble && !this.endDouble) {
         return this.startDouble;
       } else {
@@ -134,7 +138,9 @@ export default {
 
 <style lang="less" scoped>
 @appSize: 1/37.52rem;
-
+.demo-slecetDate{
+  background-color: #fff;
+}
 .mu-text-field {
   font-size: 16 * @appSize;
   width: 100%;
@@ -144,6 +150,10 @@ export default {
   color: rgba(0, 0, 0, 0.54);
   margin-bottom: 8 * @appSize;
   background-color: #fff;
+  border: 1px solid orange;
+  border-radius: 6 * @appSize;
+  margin-top: 10 * @appSize;
+  box-sizing: border-box;
 }
 
 .mu-text-field.full-width {
@@ -181,11 +191,14 @@ export default {
   align-items: center;
   justify-content: space-between;
   height: 100%;
-  padding-bottom: 12 * @appSize;
-  padding-top: 4 * @appSize;
+  // padding-bottom: 12 * @appSize;
+  // padding-top: 4 * @appSize;
+  // border: 1px solid orange;
+  // border-radius: 6 * @appSize;
+  // margin-top: 10 * @appSize;
 
   .numdays {
-    width: 80 * @appSize;
+    width: 60 * @appSize;
     height: 100%;
     color: orange;
     font-weight: bold;
@@ -217,7 +230,7 @@ export default {
   box-shadow: none;
   display: block;
   padding: 0;
-  margin-left: 20 * @appSize;
+  margin-left: 2 * @appSize;
   flex: 1;
   height: 32 * @appSize;
   font-style: inherit;
@@ -228,7 +241,7 @@ export default {
   color: orange;
   font-family: inherit;
   position: relative;
-  text-indent: 8 * @appSize;
+  // text-indent: 8 * @appSize;
 }
 
 .mu-text-field-help {

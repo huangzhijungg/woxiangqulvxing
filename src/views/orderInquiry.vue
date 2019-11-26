@@ -19,6 +19,10 @@
           <span>2019-11-22</span>
         </p>
         <p>
+          <span class="OderFrist">离店时间</span>
+          <span>2019-11-23</span>
+        </p>
+        <p>
           <span class="OderFrist">付款方式</span>
           <span>微信支付</span>
         </p>
@@ -57,12 +61,9 @@
           <span class="OderFrist">联系酒店</span>
           <span>0755-109209788</span>
         </p>
-        <!-- <p>
-          <span class="OderFrist">订单总额</span>
-          <span class="oderPrice">￥465</span>
-        </p>-->
       </div>
     </div>
+    <van-button color="orange" class="oder-btn" size="small" to="./invoice">去开发票</van-button>
   </div>
 </template>
 
@@ -108,5 +109,10 @@ export default {
       }
     }
   }
+}
+.oder-btn{
+  position: absolute;
+  bottom: 6 * @appSize;
+  right: 6 * @appSize;
 }
 </style>

@@ -17,10 +17,21 @@
       </van-cell-group>
 
       <!-- 城市输入框 -->
-      <div class="home-cityName">
-        <van-icon name="hotel-o" class="cityIcon" />
-        <smart-input v-bind="provinceList" @collect="collectProvince"></smart-input>
-      </div>
+      <van-cell-group>
+        <van-field v-model="cityName" placeholder="城市名称" left-icon="hotel-o" @focus="showCityList" />
+      </van-cell-group>
+      <van-popup v-model="showCity" position="bottom" :style="{ height: '60%' }" >
+        <van-area :area-list="areaList" :columns-num="2" @cancel="hideCityList" @confirm="complete"/>
+      </van-popup>
+      <!-- <div class="home-cityName"> -->
+      <!-- <van-icon name="hotel-o" class="cityIcon" />
+      <smart-input v-bind="provinceList" @collect="collectProvince"></smart-input>-->
+
+      <!-- <i class="fa fa-map-marker"></i>
+        <input type="hidden" name="city" id="cityId" value />
+        <input class="form-control" id="cityName" type="text" placeholder="请输入城市" value />
+      <div id="suggest" class="ac_results"></div>-->
+      <!-- </div> --> 
 
       <!-- <van-cell-group> -->
       <!-- <van-field
@@ -30,17 +41,6 @@
           @click="showPicker = true"
       />-->
       <!-- </van-cell-group> -->
-
-      <!-- 城市弹出层 -->
-      <!-- <van-popup v-model="showPicker" position="bottom">
-        <van-picker
-          show-toolbar
-          :columns="columns"
-          @cancel="showPicker = false"
-          @confirm="onConfirm"
-          :default-index="0"
-        />
-      </van-popup>-->
       <demo />
 
       <van-button
@@ -76,9 +76,11 @@
 import demo from "../components/demo";
 import "../assets/css/smartInput.css";
 import "../assets/js/smartInput.js";
-// import Vue from 'vue'
+import vantCity from '../assets/js/vantCity'
+// import allCity from '../assets/js/allCity'
 
 export default {
+  
   components: {
     demo
   },
@@ -91,30 +93,38 @@ export default {
       ],
       hotelName: "",
       cityName: "",
+      showCity:false,
       // loading: false,
       // finished: false,
-      // showPicker: false,
-      // columns: ["北京", "上海", "广州", "深圳"],
-      provinceList: {
-        list: [
-          "北京",
-          "上海",
-          "广州",
-          "深圳",
-        ]
-        // value: "我是初始值"
-      }
+      // provinceList: {
+      //   list: ["北京", "上海", "广州", "深圳"]
+      //   // value: "我是初始值"
+      // }
+      areaList:vantCity
     };
   },
   methods: {
+    complete(value){
+      // console.log(value[1].code);
+      // 将获取到的城市赋值给输入框
+      
+      this.cityName = value[1].name
+      this.showCity = false
+    },
+    showCityList(){
+      this.showCity = true
+    },
+    hideCityList(){
+      this.showCity = false
+    },
     // 跟智能输入框同步选中的业务
-    collectProvince(data) {
-      console.log(data);
-    },
-    onConfirm(value) {
-      this.cityName = value;
-      this.showPicker = false;
-    },
+    // collectProvince(data) {
+    //   console.log(data);
+    // },
+    // onConfirm(value) {
+    //   this.cityName = value;
+    //   this.showPicker = false;
+    // },
     // 点击跳转到酒店详情页面
     toDetail() {
       this.$router.push("./detail");
