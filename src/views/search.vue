@@ -3,11 +3,20 @@
     <!-- 搜索组件 -->
     <SearchBar />
     <!-- 酒店列表 -->
+    
     <van-list>
-      <van-cell v-for="(item, index) in 10" :key="index" @click="toDetail" class="search-list">
+      <van-cell
+        v-for="(item, index) in 10"
+        :key="index"
+        @click="toDetail"
+        class="search-list"
+      >
         <div class="hotelList">
           <div class="leftImg">
-            <img src="http://img4.imgtn.bdimg.com/it/u=3421948802,47894846&fm=26&gp=0.jpg" alt />
+            <img
+              src="http://img4.imgtn.bdimg.com/it/u=3421948802,47894846&fm=26&gp=0.jpg"
+              alt
+            />
           </div>
           <div class="rightText">
             <p class="hotelName">深圳南山鸿丰酒店</p>
@@ -22,7 +31,7 @@
 </template>
 
 <script>
-import SearchBar from "../components/searchBar";
+import SearchBar from '../components/searchBar'
 export default {
   components: {
     SearchBar
@@ -32,11 +41,13 @@ export default {
       // list: [],
       // loading: false,
       // finished: false
-    };
+      value1: '',
+      value2: ''
+    }
   },
   methods: {
     toDetail() {
-      this.$router.push("./Detail");
+      this.$router.push('./Detail')
     }
     // onLoad() {
     //   // 异步更新数据
@@ -53,7 +64,7 @@ export default {
     //   }, 500);
     // }
   }
-};
+}
 </script>
 
 <style lang="less" scoped>

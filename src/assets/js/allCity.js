@@ -1,13 +1,13 @@
 //初始化常用机场城市
-// var commoncitys = new Array();
+var commoncitys = new Array();
 
-// commoncitys[0] = new Array('70002', '深圳', 'null', 'SZX', 'null', 'SZ', '1');
+commoncitys[0] = new Array('70002', '深圳', 'null', 'SZX', 'null', 'SZ', '1');
 
-// commoncitys[1] = new Array('70082', '北京', 'null', 'PEK', 'null', 'BJ', '1');
+commoncitys[1] = new Array('70082', '北京', 'null', 'PEK', 'null', 'BJ', '1');
 
-// commoncitys[2] = new Array('70058', '上海', 'null', 'SHA', 'null', 'SH', '1');
+commoncitys[2] = new Array('70058', '上海', 'null', 'SHA', 'null', 'SH', '1');
 
-// commoncitys[3] = new Array('70011', '广州', 'null', 'CAN', 'null', 'GZ', '1');
+commoncitys[3] = new Array('70011', '广州', 'null', 'CAN', 'null', 'GZ', '1');
 
 
 // 初始化所有国内机场城市
@@ -601,4 +601,4 @@ citys[570] = new Array('900000125', '黄南藏族自治州', '', 'HNZZZZZ', 'nul
 	'HNZZZZZ', '8');
 citys[571] = new Array('900000126', '海北藏族自治州', '', 'HBZZZZZ', 'null',
 	'HBZZZZZ', '8');
-console.log(citys);
+// console.log(citys);

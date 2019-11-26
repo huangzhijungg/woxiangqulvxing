@@ -13,34 +13,70 @@
     <!-- 中部选择框 -->
     <div class="check">
       <van-cell-group>
-        <van-field v-model="hotelName" placeholder="酒店名称" left-icon="hotel-o" />
+        <van-field
+          v-model="hotelName"
+          placeholder="酒店名称"
+          left-icon="hotel-o"
+        />
       </van-cell-group>
+
+      <!-- <van-cell-group class="col-sm-2 m-b-xs">
+        <van-field
+          class="form-control"
+          id="cityName"
+          type="text"
+          placeholder="请输入城市"
+          value=""
+        >
+          <input type="hidden" name="city" id="cityId" value="" />
+          <input
+            class="form-control"
+            id="cityName"
+            type="text"
+            placeholder="请输入城市"
+            value=""
+          />
+          <div id="suggest" class="ac_results"></div>
+        </van-field>
+      </van-cell-group> -->
 
       <!-- 城市输入框 -->
       <van-cell-group>
-        <van-field v-model="cityName" placeholder="城市名称" left-icon="hotel-o" @focus="showCityList" />
-      </van-cell-group>
-      <van-popup v-model="showCity" position="bottom" :style="{ height: '60%' }" >
-        <van-area :area-list="areaList" :columns-num="2" @cancel="hideCityList" @confirm="complete"/>
-      </van-popup>
-      <!-- <div class="home-cityName"> -->
-      <!-- <van-icon name="hotel-o" class="cityIcon" />
-      <smart-input v-bind="provinceList" @collect="collectProvince"></smart-input>-->
-
-      <!-- <i class="fa fa-map-marker"></i>
-        <input type="hidden" name="city" id="cityId" value />
-        <input class="form-control" id="cityName" type="text" placeholder="请输入城市" value />
-      <div id="suggest" class="ac_results"></div>-->
-      <!-- </div> --> 
-
-      <!-- <van-cell-group> -->
-      <!-- <van-field
+        <van-field
           v-model="cityName"
-          placeholder="请输入城市名"
-          left-icon="location-o"
-          @click="showPicker = true"
-      />-->
-      <!-- </van-cell-group> -->
+          placeholder="城市名称"
+          left-icon="hotel-o"
+          @focus="showCityList"
+        />
+      </van-cell-group>
+      <van-popup
+        v-model="showCity"
+        position="bottom"
+        :style="{ height: '60%' }"
+      >
+        <van-area
+          :area-list="areaList"
+          :columns-num="2"
+          @cancel="hideCityList"
+          @confirm="complete"
+        />
+      </van-popup>
+
+      <!-- <div class="col-sm-2 m-b-xs">
+        <div class="input-icon">
+          <i class="fa fa-map-marker"></i>
+          <input type="hidden" name="city" id="cityId" value="" />
+          <input
+            class="form-control"
+            id="cityName"
+            type="text"
+            placeholder="请输入城市"
+            value=""
+          />
+          <div id="suggest" class="ac_results"></div>
+        </div>
+      </div> -->
+
       <demo />
 
       <van-button
@@ -48,7 +84,8 @@
         color="linear-gradient(to right, #4bb0ff, #6149f6)"
         size="large"
         @click="searchInfo"
-      >搜索</van-button>
+        >搜索</van-button
+      >
     </div>
     <!-- 数据列表 -->
     <div class="list">
@@ -60,7 +97,9 @@
         />
         <div class="left">
           <div class="bold">龙浦大酒店</div>
-          <div class="address">杭州 &nbsp;&nbsp;富阳区&nbsp;&nbsp;龙浦街道196号</div>
+          <div class="address">
+            杭州 &nbsp;&nbsp;富阳区&nbsp;&nbsp;龙浦街道196号
+          </div>
           <div class="address">二星级及以下/经济</div>
         </div>
         <div class="right">
@@ -73,48 +112,49 @@
 </template>
 
 <script>
-import demo from "../components/demo";
-import "../assets/css/smartInput.css";
-import "../assets/js/smartInput.js";
+import demo from '../components/demo'
+// import '../assets/css/smartInput.css'
+// import '../assets/js/smartInput.js'
 import vantCity from '../assets/js/vantCity'
-// import allCity from '../assets/js/allCity'
+
+// import '../assets/js/hotelMobile'
+// import '../assets/js/allCity'
 
 export default {
-  
   components: {
     demo
   },
   data() {
     return {
       imgList: [
-        "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1042650240,4209338409&fm=26&gp=0.jpg",
-        "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1616050083,3744682081&fm=26&gp=0.jpg",
-        "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2681834925,3412885945&fm=26&gp=0.jpg"
+        'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1042650240,4209338409&fm=26&gp=0.jpg',
+        'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1616050083,3744682081&fm=26&gp=0.jpg',
+        'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2681834925,3412885945&fm=26&gp=0.jpg'
       ],
-      hotelName: "",
-      cityName: "",
-      showCity:false,
+      hotelName: '',
+      cityName: '',
+      showCity: false,
       // loading: false,
       // finished: false,
       // provinceList: {
       //   list: ["北京", "上海", "广州", "深圳"]
       //   // value: "我是初始值"
       // }
-      areaList:vantCity
-    };
+      areaList: vantCity
+    }
   },
   methods: {
-    complete(value){
+    complete(value) {
       // console.log(value[1].code);
       // 将获取到的城市赋值给输入框
-      
+
       this.cityName = value[1].name
       this.showCity = false
     },
-    showCityList(){
+    showCityList() {
       this.showCity = true
     },
-    hideCityList(){
+    hideCityList() {
       this.showCity = false
     },
     // 跟智能输入框同步选中的业务
@@ -127,11 +167,11 @@ export default {
     // },
     // 点击跳转到酒店详情页面
     toDetail() {
-      this.$router.push("./detail");
+      this.$router.push('./detail')
     },
     // 点击搜索按钮去到搜索页面并发送请求获取数据
     searchInfo() {
-      this.$router.push("./search");
+      this.$router.push('./search')
     }
   }
   // onLoad() {
@@ -148,7 +188,7 @@ export default {
   //     }
   //   }, 500)
   // }
-};
+}
 </script>
 
 <style lang="less" scoped>

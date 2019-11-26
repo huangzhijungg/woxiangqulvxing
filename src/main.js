@@ -8,8 +8,8 @@ import store from './store'
 
 import 'vant/lib/index.css';
 
-// import './assets/css/smartInput.css'
-// import './assets/js/smartInput.js'
+// import './assets/js/hotelMobile'
+// import './assets/js/allCity'
 
 import { Swipe, SwipeItem } from 'vant';
 Vue.use(Swipe).use(SwipeItem);
@@ -96,6 +96,8 @@ Vue.use(Area);
 import { Tab, Tabs } from 'vant';
 Vue.use(Tab).use(Tabs);
 
+// import { DropdownMenu, DropdownItem } from 'vant';
+// Vue.use(DropdownMenu).use(DropdownItem);
 
 Vue.config.productionTip = false
 new Vue({
