@@ -22,3 +22,6 @@
 //         // } // 配置多个代理
 //     }
 // };
+module.exports = {
+    runtimeCompiler: true,
+}

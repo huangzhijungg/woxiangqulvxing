@@ -5,6 +5,8 @@
  /*
     global Vue
  */
+// import Vue from 'vue'
+import Vue from 'vue/dist/vue.esm.js'
 
 Vue.component('smart-input', {
     template: `
@@ -43,7 +45,7 @@ Vue.component('smart-input', {
             />
             <div v-if="invalidData" class="invalid-msg">{{invalidData}}</div>
             <ul v-show="searching" class="friendSearchList">
-                <p v-if="!filtered.length">空数据</p>
+                <p v-if="!filtered.length">暂时没有你要找的城市噢</p>
                 <li v-else v-for="(item, index) in filtered"
                     :class="{'smartInput-active': selected.includes(item)}"
                     @click.stop="clickOne"
@@ -66,7 +68,7 @@ Vue.component('smart-input', {
         multiple: Boolean,
         placeholder: {
             type: String,
-            default: '输入文本自动检索，上下键选取，回车选中，可点选'
+            default: '城市名称'
         }
     },
     data() {
@@ -206,12 +208,12 @@ Vue.component('smart-input', {
             this.focusIndex = [].indexOf.call(target.parentElement.children, target);
             this.chooseOne(target);
         },
-        // 删除一个选项
-        deleteOne(e) {
-            // 点击删除选项时清除blur的回调，保持下拉框显示
-            clearTimeout(this.timer);
-            this.chooseOne(e.currentTarget.parentElement.children[0]);
-        },
+        // // 删除一个选项
+        // deleteOne(e) {
+        //     // 点击删除选项时清除blur的回调，保持下拉框显示
+        //     clearTimeout(this.timer);
+        //     this.chooseOne(e.currentTarget.parentElement.children[0]);
+        // },
         // 键盘选择一个选项
         selectOne(e) {
             clearTimeout(this.timer);

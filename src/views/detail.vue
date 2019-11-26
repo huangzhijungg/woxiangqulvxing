@@ -198,8 +198,8 @@ export default {
   .name {
     span {
       .rightarrow {
-        right: 18px;
-        top: 3px;
+        right: 18 * @appSize;
+        top: 3 * @appSize;
       }
     }
   }

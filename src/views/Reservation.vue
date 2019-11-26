@@ -81,7 +81,7 @@ export default {
   },
   data() {
     return {
-      radio: "1",
+      radio: 1,
       // 绑定输入框的值
       value1: "我想去",
       value2: "",
@@ -105,7 +105,9 @@ export default {
   },
   methods: {
     // 选择房间数
-    checkRoom(name) {
+    checkRoom(name, radio) {
+      // console.log(this.radio);
+      // console.log(name);
       if (name == 2) {
         this.showInput2 = true;
         this.showInput3 = false;
@@ -127,23 +129,105 @@ export default {
     onClickLeft() {
       this.$router.back();
     },
-    clickShowInput() {
-      this.showInput2 = true;
-    },
+    // clickShowInput() {
+    //   this.showInput2 = true;
+    // },
     // 点击后验证手机号是否符合规则
-    nextTo() {
+    nextTo(radio) {
       if (this.value1 == "" || this.phonenumber == "") {
-        console.log(111);
         this.$toast({
           message: "姓名或电话不能为空",
           icon: "warning"
         });
-        // if (name == 2 || this.value2 == "") {
-        //   this.$toast({
-        //     message: "姓名或电话不能为空",
-        //     icon: "warning"
-        //   });
-        // }
+      } else if (this.radio == 2) {
+        if (this.value2 == "" || this.value1 == "" || this.phonenumber == "") {
+          this.$toast({
+            message: "姓名或电话不能为空",
+            icon: "warning"
+          });
+        } else {
+          let re = /^1(3|4|5|6|7|8|9)\d{9}$/;
+          // 正则，验证手机号输入是否正确
+          let show = re.test(this.phonenumber);
+          // 若正确返回true，反之false
+          this.isShow = show;
+          // isShow获取之后返回到v-if进行判断是消失还是出现
+          if (this.isShow) {
+            this.$notify({
+              type: "warning",
+              message: "订单提交成功",
+              duration: 1000
+            });
+            // this.$router.push("/Login_test");
+            console.log("通过");
+            // 一定要进行判断，只有返回的是true才证明输入电话号码正确，才能跳转到下一页获取验证码
+            this.$router.push("./pay");
+            // console.log("支付成功");
+          }
+        }
+      } else if (this.radio == 3) {
+        if (
+          this.value2 == "" ||
+          this.value1 == "" ||
+          this.phonenumber == "" ||
+          this.value3 == ""
+        ) {
+          this.$toast({
+            message: "姓名或电话不能为空",
+            icon: "warning"
+          });
+        } else {
+          let re = /^1(3|4|5|6|7|8|9)\d{9}$/;
+          // 正则，验证手机号输入是否正确
+          let show = re.test(this.phonenumber);
+          // 若正确返回true，反之false
+          this.isShow = show;
+          // isShow获取之后返回到v-if进行判断是消失还是出现
+          if (this.isShow) {
+            this.$notify({
+              type: "warning",
+              message: "订单提交成功",
+              duration: 1000
+            });
+            // this.$router.push("/Login_test");
+            console.log("通过");
+            // 一定要进行判断，只有返回的是true才证明输入电话号码正确，才能跳转到下一页获取验证码
+            this.$router.push("./pay");
+            // console.log("支付成功");
+          }
+        }
+      } else if (this.radio == 4) {
+        if (
+          this.value2 == "" ||
+          this.value1 == "" ||
+          this.phonenumber == "" ||
+          this.value3 == "" ||
+          this.value4 == ""
+        ) {
+          this.$toast({
+            message: "姓名或电话不能为空",
+            icon: "warning"
+          });
+        } else {
+          let re = /^1(3|4|5|6|7|8|9)\d{9}$/;
+          // 正则，验证手机号输入是否正确
+          let show = re.test(this.phonenumber);
+          // 若正确返回true，反之false
+          this.isShow = show;
+          // isShow获取之后返回到v-if进行判断是消失还是出现
+          if (this.isShow) {
+            this.$notify({
+              type: "warning",
+              message: "订单提交成功",
+              duration: 1000
+            });
+            // this.$router.push("/Login_test");
+            console.log("通过");
+            // 一定要进行判断，只有返回的是true才证明输入电话号码正确，才能跳转到下一页获取验证码
+            this.$router.push("./pay");
+            // console.log("支付成功");
+          }
+        }
       } else {
         let re = /^1(3|4|5|6|7|8|9)\d{9}$/;
         // 正则，验证手机号输入是否正确
@@ -251,7 +335,6 @@ export default {
   right: 0;
   left: 0;
   background-color: #fff;
-  // margin-top: 10px;
   z-index: 999;
 
   span {

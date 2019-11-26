@@ -17,17 +17,22 @@
       </van-cell-group>
 
       <!-- 城市输入框 -->
-      <van-cell-group>
-        <van-field
+      <div class="home-cityName">
+        <van-icon name="hotel-o" class="cityIcon" />
+        <smart-input v-bind="provinceList" @collect="collectProvince"></smart-input>
+      </div>
+
+      <!-- <van-cell-group> -->
+      <!-- <van-field
           v-model="cityName"
           placeholder="请输入城市名"
           left-icon="location-o"
           @click="showPicker = true"
-        />
-      </van-cell-group>
+      />-->
+      <!-- </van-cell-group> -->
 
       <!-- 城市弹出层 -->
-      <van-popup v-model="showPicker" position="bottom">
+      <!-- <van-popup v-model="showPicker" position="bottom">
         <van-picker
           show-toolbar
           :columns="columns"
@@ -35,9 +40,7 @@
           @confirm="onConfirm"
           :default-index="0"
         />
-      </van-popup>
-      <!-- <smart-input v-bind="provinceList" @collect="collectProvince"></smart-input> -->
-
+      </van-popup>-->
       <demo />
 
       <van-button
@@ -71,6 +74,8 @@
 
 <script>
 import demo from "../components/demo";
+import "../assets/css/smartInput.css";
+import "../assets/js/smartInput.js";
 // import Vue from 'vue'
 
 export default {
@@ -88,11 +93,24 @@ export default {
       cityName: "",
       // loading: false,
       // finished: false,
-      showPicker: false,
-      columns: ["北京", "上海", "广州", "深圳"],
+      // showPicker: false,
+      // columns: ["北京", "上海", "广州", "深圳"],
+      provinceList: {
+        list: [
+          "北京",
+          "上海",
+          "广州",
+          "深圳",
+        ]
+        // value: "我是初始值"
+      }
     };
   },
   methods: {
+    // 跟智能输入框同步选中的业务
+    collectProvince(data) {
+      console.log(data);
+    },
     onConfirm(value) {
       this.cityName = value;
       this.showPicker = false;
@@ -103,7 +121,6 @@ export default {
     },
     // 点击搜索按钮去到搜索页面并发送请求获取数据
     searchInfo() {
-      
       this.$router.push("./search");
     }
   }
@@ -131,14 +148,14 @@ ul {
   border: 1px solid red;
 }
 li {
-  height: 40px;
-  line-height: 40px;
+  height: 40 * @appSize;
+  line-height: 40 * @appSize;
   border-bottom: 1px solid #ddd;
 }
 .bindingbtn input {
   border: 1px solid #333;
-  height: 44px;
-  line-height: 44px;
+  height: 44 * @appSize;
+  line-height: 44 * @appSize;
 }
 .topBar {
   width: 100%;
@@ -154,7 +171,7 @@ li {
   bottom: 0;
   right: 0;
   left: 0;
-  z-index: 1;
+  z-index: 999;
 }
 
 .swipper {
@@ -175,6 +192,18 @@ li {
     }
   }
 }
+.home-cityName {
+  position: relative;
+
+  .cityIcon {
+    position: absolute;
+    top: 10 * @appSize;
+    left: 10 * @appSize;
+    font-size: 16 * @appSize;
+    z-index: 10;
+  }
+}
+
 .check {
   width: 100%;
   padding: 10 * @appSize;
@@ -229,7 +258,7 @@ li {
       display: flex;
       justify-content: center;
       align-items: center;
-      margin-top: 30px;
+      margin-top: 30 * @appSize;
       span {
         color: red;
         font-size: 18 * @appSize;

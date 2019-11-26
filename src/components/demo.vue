@@ -57,8 +57,9 @@ export default {
       single: "",
       double: "",
       startSingle: "",
-      startDouble: "",
-      endDouble: "",
+      // 默认获取当天时间和后一天的日期
+      startDouble: this.formatDate(new Date().getTime()),
+      endDouble: this.formatDate(new Date().getTime() + 24 * 60 * 60 * 1000),
       dateOptionsDouble: {
         // scrollEnd: true, // 滚到最后
         maxDate: "24m", // 月份跨度
@@ -72,9 +73,6 @@ export default {
         isDoubleCheck: false
       }
     };
-  },
-  created(){
-    this.startDouble = 2019-11-25 + `至` + 2019-11-26
   },
   computed: {
     // showSingle() {
