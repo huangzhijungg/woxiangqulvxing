@@ -19,18 +19,13 @@
           </form>
         </van-col>
       </van-row>
-      <!-- <van-tabs type="card">
-        <van-tab title="标签 1"></van-tab>
-        <van-tab title="标签 2"></van-tab>
-        <van-tab title="标签 3"></van-tab>
-      </van-tabs>  -->
       <demo />
     </div>
   </div>
 </template>
 
 <script>
-import demo from './demo'
+import demo from "./demo";
 
 export default {
   components: {
@@ -39,36 +34,36 @@ export default {
 
   data() {
     return {
-      value: '',
-      isShow: false
-    }
+      value: "",
+      isShow: false,
+    };
   },
   methods: {
     onSearch() {
-      if (this.value == '') {
+      if (this.value == "") {
         this.$notify({
-          type: 'danger',
-          message: '请输入要搜索的内容',
+          type: "danger",
+          message: "请输入要搜索的内容",
           duration: 1000
-        })
-        return
+        });
+        return;
       }
-      console.log('搜索')
+      console.log("搜索");
     },
     onCancel() {
-      console.log('取消')
+      console.log("取消");
     },
     goBackLast() {
-      this.$router.back()
+      this.$router.back();
     },
     focus() {
-      this.isShow = true
+      this.isShow = true;
     },
     onCancel() {
-      this.isShow = false
+      this.isShow = false;
     }
   }
-}
+};
 </script>
 
 <style lang="less" scoped>

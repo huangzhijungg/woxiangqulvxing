@@ -45,15 +45,19 @@
     <div class="hotelInfo">
       <div class="special">
         <span class="tese">酒店名称：维也纳国际酒店</span>
-        <span @click="toMap">
+      </div>
+
+      <div class="special">
+        <span class="tese">酒店地址：广东深圳罗湖区宝安南路1881号518000</span>
+        <span @click="toMap" class="detailColor">
           地图
           <van-icon name="arrow" class="rightarrow" />
         </span>
       </div>
 
       <div class="special">
-        <span class="tese">酒店特色：2222222222222222222222222222222222222222</span>
-        <span @click="showDetail">
+        <span class="tese">酒店特色：豪华酒店，设有全套 SPA 服务，可直达购物中心，邻近华强北</span>
+        <span @click="showDetail" class="detailColor">
           详情
           <van-icon name="arrow" class="rightarrow" />
         </span>
@@ -62,8 +66,8 @@
     <demo />
     <!-- 折叠面板 -->
     <van-collapse v-model="activeName" accordion>
+      <!-- 存放左侧图片 icon -->
       <van-collapse-item
-        icon="http://img2.imgtn.bdimg.com/it/u=106114937,2313334905&fm=26&gp=0.jpg"
         title="高级双床房"
         value="日均 ￥536  起"
         v-for="(item, index) in 8"
@@ -175,7 +179,7 @@ export default {
   }
 }
 .hotelInfo {
-  color: #989898;
+  color: #292421;
   div {
     width: 100%;
     height: 40 * @appSize;
@@ -192,6 +196,9 @@ export default {
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+    }
+    .detailColor{
+      color: orange;
     }
   }
   .special,

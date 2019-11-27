@@ -85,7 +85,7 @@ export default {
     // 输入框绑定的值
     showDouble() {
       if (this.startDouble && this.endDouble) {
-        return `入店:` + this.startDouble + ` 至  ` + this.endDouble + `离店`;
+        return `入住:` + this.startDouble + ` 至  ` + this.endDouble + `离店`;
       } else if (this.startDouble && !this.endDouble) {
         return this.startDouble;
       } else {

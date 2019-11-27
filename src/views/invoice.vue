@@ -23,21 +23,20 @@
         <van-cell title="发票类型">
           <van-tabs type="card" background="white" title-active-color="#fff" color="orange">
             <van-tab title="电子"></van-tab>
-            <van-tab title="纸质"></van-tab>
           </van-tabs>
         </van-cell>
-        <van-field v-model="value1" placeholder="请选择发票抬头" label="发票抬头" is-link />
-        <van-field v-model="value2" placeholder="发票内容" label="发票内容" is-link />
-        <van-field v-model="value3" placeholder="发票备注信息" label="备注信息" is-link />
+        <van-field v-model="value1" placeholder="发票抬头" label="发票抬头" />
+        <van-field v-model="value2" placeholder="发票内容" label="发票内容" />
+        <van-field v-model="value3" placeholder="发票备注信息" label="备注信息" />
       </van-cell-group>
 
       <span class="makeinvoice-info">配送信息</span>
       <van-cell-group>
         <van-field v-model="value4" placeholder="请输入手机号码" label="收票人手机" />
         <van-field v-model="value5" placeholder="用于接收电子发票" label="电子邮箱" />
-        <van-field v-model="value6" placeholder="用于接收发票时间" label="邮寄日期" />
       </van-cell-group>
     </div>
+    <van-button color="orange" class="oder-btn" size="small" to="./invoice">提交</van-button>
   </div>
 </template>
 
@@ -91,5 +90,10 @@ export default {
 }
 .makeinvoice-info {
   margin-top: 10 * @appSize;
+}
+.oder-btn{
+  position: absolute;
+  bottom: 6 * @appSize;
+  right: 6 * @appSize;
 }
 </style>

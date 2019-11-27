@@ -268,6 +268,7 @@ li {
     padding: 0;
     text-indent: 5 * @appSize;
     margin-bottom: 10 * @appSize;
+    line-height: 34 * @appSize;
   }
 }
 .van-button {
@@ -277,6 +278,7 @@ li {
   height: 40 * @appSize;
   border-radius: 6 * @appSize;
   line-height: 40 * @appSize;
+  margin-top: 10 * @appSize;
 }
 .list {
   .van-cell {

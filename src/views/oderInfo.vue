@@ -4,7 +4,7 @@
     <div class="oderList" v-for="(item, index) in 4" :key="index">
       <div class="oderItem">
         <p class="oder-hotelname">维也纳国际酒店</p>
-        <p>豪华大床房 | 不含早 | 1房</p>
+        <p>豪华大床房 | 不含早  </p>
         <p>2019-11-26&nbsp;至 &nbsp;2019-11-27</p>
         <p class="oderAllPrice">订单总额 : ￥ 468</p>
         <van-button type="primary" to="orderInquiry" size="small" class="oderBtn" color="orange">详情</van-button>
@@ -52,7 +52,7 @@ export default {
     }
     .oderBtn{
         position: relative;
-        top: 0;
+        bottom: 10px;
         left: 280 * @appSize;
     }
   }
