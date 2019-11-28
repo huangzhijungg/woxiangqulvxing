@@ -6,6 +6,10 @@ import 'lib-flexible'
 
 import store from './store'
 
+import Axios from 'axios'  //导入axios
+//将axios挂载到原型上
+Vue.prototype.$axios = Axios;
+
 import 'vant/lib/index.css';
 
 // import './assets/js/hotelMobile'

@@ -13,11 +13,7 @@
     <!-- 中部选择框 -->
     <div class="check">
       <van-cell-group>
-        <van-field
-          v-model="hotelName"
-          placeholder="酒店名称"
-          left-icon="hotel-o"
-        />
+        <van-field v-model="hotelName" placeholder="酒店名称" left-icon="hotel-o" />
       </van-cell-group>
 
       <!-- <van-cell-group class="col-sm-2 m-b-xs">
@@ -38,22 +34,13 @@
           />
           <div id="suggest" class="ac_results"></div>
         </van-field>
-      </van-cell-group> -->
+      </van-cell-group>-->
 
       <!-- 城市输入框 -->
       <van-cell-group>
-        <van-field
-          v-model="cityName"
-          placeholder="城市名称"
-          left-icon="hotel-o"
-          @focus="showCityList"
-        />
+        <van-field v-model="cityName" placeholder="城市名称" left-icon="hotel-o" @focus="showCityList" />
       </van-cell-group>
-      <van-popup
-        v-model="showCity"
-        position="bottom"
-        :style="{ height: '60%' }"
-      >
+      <van-popup v-model="showCity" position="bottom" :style="{ height: '60%' }">
         <van-area
           :area-list="areaList"
           :columns-num="2"
@@ -62,21 +49,6 @@
         />
       </van-popup>
 
-      <!-- <div class="col-sm-2 m-b-xs">
-        <div class="input-icon">
-          <i class="fa fa-map-marker"></i>
-          <input type="hidden" name="city" id="cityId" value="" />
-          <input
-            class="form-control"
-            id="cityName"
-            type="text"
-            placeholder="请输入城市"
-            value=""
-          />
-          <div id="suggest" class="ac_results"></div>
-        </div>
-      </div> -->
-
       <demo />
 
       <van-button
@@ -84,41 +56,34 @@
         color="linear-gradient(to right, #4bb0ff, #6149f6)"
         size="large"
         @click="searchInfo"
-        >搜索</van-button
-      >
+      >搜索</van-button>
     </div>
     <!-- 数据列表 -->
     <div class="list">
-      <!-- <van-list v-model="loading" :finished="finished" finished-text="没有更多了"> -->
-      <van-cell v-for="(item, index) in 8" :key="index" @click="toDetail">
-        <img
-          src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1546595911,624006547&fm=26&gp=0.jpg"
-          alt
-        />
-        <div class="left">
-          <div class="bold">龙浦大酒店</div>
-          <div class="address">
-            杭州 &nbsp;&nbsp;富阳区&nbsp;&nbsp;龙浦街道196号
+      <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad">
+        <van-cell v-for="(item, index) in hotelList.hotels" :key="index" @click="toDetail">
+          <img
+            :src="item.hotelImg ? item.hotelImg : `http://hbimg.b0.upaiyun.com/bdaca9a07e1a8947c00c2f826ebf848750927aa24963-cATwbg_fw658`"
+            alt
+          />
+          <div class="left">
+            <div class="bold">{{item.nameChn}}</div>
+            <div class="address">{{item.cityName}}&nbsp;&nbsp;{{item.adress}}</div>
+            <div class="address">{{item.levelName}}</div>
           </div>
-          <div class="address">二星级及以下/经济</div>
-        </div>
-        <div class="right">
-          <span>￥ 560起</span>
-        </div>
-      </van-cell>
-      <!-- </van-list> -->
+          <div class="right">
+            <span>{{item.existFlag == 0 ? `已满房` : `￥`+ item.lowestPrice + `元起`}}</span>
+          </div>
+        </van-cell>
+      </van-list>
     </div>
   </div>
 </template>
 
 <script>
-import demo from '../components/demo'
-// import '../assets/css/smartInput.css'
-// import '../assets/js/smartInput.js'
-import vantCity from '../assets/js/vantCity'
-
-// import '../assets/js/hotelMobile'
-// import '../assets/js/allCity'
+import demo from "../components/demo";
+import vantCity from "../assets/js/vantCity";
+import myRequest from "../utils/request";
 
 export default {
   components: {
@@ -127,68 +92,90 @@ export default {
   data() {
     return {
       imgList: [
-        'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1042650240,4209338409&fm=26&gp=0.jpg',
-        'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1616050083,3744682081&fm=26&gp=0.jpg',
-        'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2681834925,3412885945&fm=26&gp=0.jpg'
+        "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1042650240,4209338409&fm=26&gp=0.jpg",
+        "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1616050083,3744682081&fm=26&gp=0.jpg",
+        "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2681834925,3412885945&fm=26&gp=0.jpg"
       ],
-      hotelName: '',
-      cityName: '',
+      hotelName: "",
+      cityName: "",
       showCity: false,
-      // loading: false,
-      // finished: false,
-      // provinceList: {
-      //   list: ["北京", "上海", "广州", "深圳"]
-      //   // value: "我是初始值"
-      // }
-      areaList: vantCity
-    }
+      loading: false,
+      finished: false,
+      areaList: vantCity,
+      // 城市数据列表
+      hotelList: [],
+      // 分页数据
+      // detailInfo:[]
+      addHotel:[]
+    };
+  },
+  // 页面加载发送请求获取数据
+  created() {
+    this.$axios({
+      method: "post",
+      url:
+        "http://192.168.1.124:8080/mobile/amanager/info/hotel/ajaxHotelList.htm"
+    }).then(data => {
+      // this.loading = true,
+      console.log(data);
+      // 将获取到的数据保存到hotelList
+      this.hotelList = data.data;
+      
+    });
   },
   methods: {
-    complete(value) {
-      // console.log(value[1].code);
-      // 将获取到的城市赋值给输入框
+    onLoad() {
+      // 异步更新数据;
+      setTimeout(() => {
+        this.$axios({
+          method: "post",
+          params: {
+            page: this.hotelList.page.nextPage,
+            limit: 10
+          },
+          url:
+            "http://192.168.1.124:8080/mobile/amanager/info/hotel/ajaxHotelList.htm"
+        }).then(res => {
+          console.log(111);
+          console.log(res);
+          // 将获取到的数据保存到hotelList
+          this.addHotel.push(res.data.hotels);
+        });
 
-      this.cityName = value[1].name
-      this.showCity = false
+        // 加载状态结束
+        this.loading = false;
+        // 数据全部加载完成
+        // if (this.hotelList.length >= this.hotelList.page.totalCount) {
+        //   this.finished = true;
+        // }
+      }, 500);
+    },
+
+    complete(value) {
+      // 将获取到的城市赋值给输入框
+      this.cityName = value[1].name;
+      this.showCity = false;
     },
     showCityList() {
-      this.showCity = true
+      this.showCity = true;
     },
     hideCityList() {
-      this.showCity = false
+      this.showCity = false;
     },
-    // 跟智能输入框同步选中的业务
-    // collectProvince(data) {
-    //   console.log(data);
-    // },
-    // onConfirm(value) {
-    //   this.cityName = value;
-    //   this.showPicker = false;
-    // },
     // 点击跳转到酒店详情页面
     toDetail() {
-      this.$router.push('./detail')
+      sessionStorage.setItem("hotelName", this.hotelList);
+      // sessionStorage.setItem("hotelAdr", );
+      this.$router.push("./detail");
     },
     // 点击搜索按钮去到搜索页面并发送请求获取数据
     searchInfo() {
-      this.$router.push('./search')
+      // 点击搜索获取城市名称和酒店名称发送请求
+
+      this.$router.push("./search");
     }
   }
-  // onLoad() {
-  //   // 异步更新数据
-  //   setTimeout(() => {
-  //     // for (let i = 0; i < 10; i++) {
-  //     //   this.list.push(this.list.length + 1)
-  //     // }
-  //     // 加载状态结束
-  //     this.loading = false
-  //     // 数据全部加载完成
-  //     if (this.list.length >= 列表的总长度) {
-  //       this.finished = true
-  //     }
-  //   }, 500)
-  // }
-}
+};
 </script>
 
 <style lang="less" scoped>

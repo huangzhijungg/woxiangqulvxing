@@ -3,7 +3,7 @@
     <!-- 搜索组件 -->
     <SearchBar />
 
-    <van-tabs
+    <!-- <van-tabs
       v-model="activeName"
       color="#000"
       title-active-color="#000"
@@ -19,7 +19,7 @@
       <van-tab>
         <div class="tab-title" slot="title">位置区域</div>
       </van-tab>
-    </van-tabs>
+    </van-tabs>-->
 
     <van-popup
       v-model="showStart"
@@ -39,16 +39,16 @@
 
     <!-- 酒店列表 -->
     <van-list>
-      <van-cell v-for="(item, index) in 10" :key="index" @click="toDetail" class="search-list">
+      <van-cell v-for="(item, index) in hotelList" :key="index" @click="toDetail" class="search-list">
         <div class="hotelList">
           <div class="leftImg">
-            <img src="http://img4.imgtn.bdimg.com/it/u=3421948802,47894846&fm=26&gp=0.jpg" alt />
+            <img :src="item.hotelImg ? item.hotelImg : `http://hbimg.b0.upaiyun.com/bdaca9a07e1a8947c00c2f826ebf848750927aa24963-cATwbg_fw658`" alt />
           </div>
           <div class="rightText">
-            <p class="hotelName">深圳南山鸿丰酒店</p>
-            <p class="hotelXing">经济型</p>
-            <p class="hotelHao">南山区东滨路4096号</p>
-            <p class="hotelAdr">南头地区</p>
+            <p class="hotelName">{{item.nameChn}}</p>
+            <p class="hotelXing">{{item.levelName}}</p>
+            <p class="hotelHao">{{item.adress}}</p>
+            <p class="hotelAdr">{{item.cityName}}</p>
           </div>
         </div>
       </van-cell>
@@ -71,8 +71,20 @@ export default {
       value2: "",
       activeName: "a",
       showStart: false,
-      radio: "5"
+      radio: "5",
+      hotelList: []
     };
+  },
+  // 页面加载发送请求获取数据
+  created() {
+    this.$axios({
+      method: "post",
+      url:
+        "http://192.168.1.124:8080/mobile/amanager/info/hotel/ajaxHotelList.htm"
+    }).then(data => {
+      console.log(data);
+      this.hotelList = data.data.hotels;
+    });
   },
   methods: {
     starLevel() {
@@ -102,17 +114,6 @@ export default {
 
 <style lang="less" scoped>
 @appSize: 1/37.52rem;
-// .special {
-//   width: 100%;
-//   height: 50px;
-//   position: fixed;
-//   top: 128 * @appSize;
-//   right: 0;
-//   left: 0;
-//   z-index: 999;
-//   background-color: #fff;
-//   margin-top: -1 * @appSize;
-// }
 .topClassify {
   position: fixed;
   top: 130 * @appSize;
@@ -130,7 +131,7 @@ export default {
   margin-top: 80 * @appSize;
 }
 .van-list {
-  margin-top: 170px;
+  margin-top: 130px;
 }
 .hotelList {
   width: 100%;

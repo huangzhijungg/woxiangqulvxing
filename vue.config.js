@@ -36,5 +36,18 @@ module.exports = {
 
         ]
 
-    }
+    },
+    // devServer: {
+    //     proxy: {
+    //         '/api': {
+    //             target: 'http://192.168.1.124:8080/', //对应自己的接口
+    //             'secure': false,
+    //             changeOrigin: true,
+    //             ws: true,
+    //             pathRewrite: {
+    //                 '^/api': ''
+    //             }
+    //         }
+    //     }
+    // }
 }
