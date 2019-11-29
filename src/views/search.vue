@@ -37,12 +37,20 @@
       </van-radio-group>
     </van-popup>
 
-    <!-- 酒店列表 -->
-    <van-list>
-      <van-cell v-for="(item, index) in hotelList" :key="index" @click="toDetail" class="search-list">
+    <!-- 酒店列表   -->
+    <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad">
+      <van-cell
+        v-for="(item, index) in searchHotelList"
+        :key="index"
+        @click="toDetail"
+        class="search-list"
+      >
         <div class="hotelList">
           <div class="leftImg">
-            <img :src="item.hotelImg ? item.hotelImg : `http://hbimg.b0.upaiyun.com/bdaca9a07e1a8947c00c2f826ebf848750927aa24963-cATwbg_fw658`" alt />
+            <img
+              :src="item.hotelImg ? item.hotelImg : `http://hbimg.b0.upaiyun.com/bdaca9a07e1a8947c00c2f826ebf848750927aa24963-cATwbg_fw658`"
+              alt
+            />
           </div>
           <div class="rightText">
             <p class="hotelName">{{item.nameChn}}</p>
@@ -64,29 +72,64 @@ export default {
   },
   data() {
     return {
-      // list: [],
-      // loading: false,
-      // finished: false
-      value1: "",
-      value2: "",
+      loading: false,
+      finished: false,
       activeName: "a",
       showStart: false,
       radio: "5",
-      hotelList: []
+      searchHotelList: [],
+      page: 1
     };
   },
-  // 页面加载发送请求获取数据
   created() {
-    this.$axios({
-      method: "post",
-      url:
-        "http://192.168.1.124:8080/mobile/amanager/info/hotel/ajaxHotelList.htm"
-    }).then(data => {
-      console.log(data);
-      this.hotelList = data.data.hotels;
-    });
+    this.getSearchHotel();
   },
+
   methods: {
+    getSearchHotel() {
+      this.$axios({
+        method: "post",
+        params: {
+          nameChn: localStorage.getItem("hotelName")
+          // nameChn: decodeURI(localStorage.getItem("hotelName"))
+          // city: JSON.stringify(localStorage.getItem("cityName"))
+        },
+        url:
+          "http://woxiangqu-tour.cn/mobile/amanager/info/hotel/ajaxHotelList.htm"
+      }).then(data => {
+        // console.log(data);
+        this.searchHotelList = data.data.hotels;
+        this.loading = false;
+      });
+    },
+
+    onLoad() {
+      // 异步更新数据;
+      setTimeout(() => {
+        this.$axios({
+          method: "post",
+          params: {
+            page: this.page++,
+            limit: 10
+          },
+          url:
+            "http://woxiangqu-tour.cn/mobile/amanager/info/hotel/ajaxHotelList.htm"
+        }).then(item => {
+          if (item.status == 200) {
+            console.log(item);
+            // 将获取到的数据保存到hotelList
+            this.searchHotelList = [...this.searchHotelList, ...item.data.hotels];
+            // 加载状态结束
+            this.loading = false;
+            // 数据全部加载完成
+            if (this.searchHotelList.length >= item.data.page.totalCount) {
+              this.finished = true;
+            }
+          }
+        });
+      }, 1000);
+    },
+
     starLevel() {
       this.showStart = true;
     },
@@ -94,20 +137,6 @@ export default {
     toDetail() {
       this.$router.push("./Detail");
     }
-    // onLoad() {
-    //   // 异步更新数据
-    //   setTimeout(() => {
-    //     for (let i = 0; i < 10; i++) {
-    //       this.list.push(this.list.length + 1);
-    //     }
-    //     // 加载状态结束
-    //     this.loading = false;
-    //     // 数据全部加载完成
-    //     if (this.list.length >= 40) {
-    //       this.finished = true;
-    //     }
-    //   }, 500);
-    // }
   }
 };
 </script>
