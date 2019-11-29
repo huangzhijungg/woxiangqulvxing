@@ -16,26 +16,6 @@
         <van-field v-model="hotelName" placeholder="酒店名称" left-icon="hotel-o" />
       </van-cell-group>
 
-      <!-- <van-cell-group class="col-sm-2 m-b-xs">
-        <van-field
-          class="form-control"
-          id="cityName"
-          type="text"
-          placeholder="请输入城市"
-          value=""
-        >
-          <input type="hidden" name="city" id="cityId" value="" />
-          <input
-            class="form-control"
-            id="cityName"
-            type="text"
-            placeholder="请输入城市"
-            value=""
-          />
-          <div id="suggest" class="ac_results"></div>
-        </van-field>
-      </van-cell-group>-->
-
       <!-- 城市输入框 -->
       <van-cell-group>
         <van-field v-model="cityName" placeholder="城市名称" left-icon="hotel-o" @focus="showCityList" />
