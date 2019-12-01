@@ -34,7 +34,7 @@ export default {
 
   data() {
     return {
-      value: "",
+      value: '',
       isShow: false,
     };
   },
@@ -46,9 +46,9 @@ export default {
           message: "请输入要搜索的内容",
           duration: 1000
         });
-        return;
+      }else{
+
       }
-      console.log("搜索");
     },
     onCancel() {
       console.log("取消");

@@ -29,7 +29,7 @@
         </div>
         <div class="phone">
           <p>联系方式</p>
-          <span>0755-908-99008</span>
+          <span>{{hotelPhone}}</span>
         </div>
       </div>
     </van-popup>
@@ -44,11 +44,11 @@
 
     <div class="hotelInfo">
       <div class="special">
-        <span class="tese">酒店名称：维也纳国际酒店</span>
+        <span class="tese">酒店名称：{{hotelName}}</span>
       </div>
 
       <div class="special">
-        <span class="tese">酒店地址：广东深圳罗湖区宝安南路1881号518000</span>
+        <span class="tese">酒店地址：{{hotelAddress}}</span>
         <span @click="toMap" class="detailColor">
           地图
           <van-icon name="arrow" class="rightarrow" />
@@ -111,7 +111,10 @@ export default {
         "http://img3.imgtn.bdimg.com/it/u=2920944932,3026420003&fm=26&gp=0.jpg"
       ],
       show: false,
-      activeName: "1"
+      activeName: "1",
+      hotelName:sessionStorage.getItem('hotelName'),
+      hotelAddress:sessionStorage.getItem('hotelAdr'),
+      hotelPhone:sessionStorage.getItem('hotelPhone'),
     };
   },
   methods: {

@@ -28,7 +28,11 @@
       close-icon="success"
       closeable
     >
-      <van-radio-group v-model="radio" class="chooseRoom" checked-color="#ff6633">
+      <van-radio-group
+        v-model="radio"
+        class="chooseRoom"
+        checked-color="#ff6633"
+      >
         <van-radio name="1" checked-color="#07c160">经济型</van-radio>
         <van-radio name="2" checked-color="#07c160">舒适型</van-radio>
         <van-radio name="3" checked-color="#07c160">高档型</van-radio>
@@ -38,25 +42,34 @@
     </van-popup>
 
     <!-- 酒店列表   -->
-    <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad">
+    <van-list
+      v-model="loading"
+      :finished="finished"
+      finished-text="没有更多了"
+      @load="onLoad"
+    >
       <van-cell
         v-for="(item, index) in searchHotelList"
         :key="index"
-        @click="toDetail"
+        @click="toDetail(item)"
         class="search-list"
       >
         <div class="hotelList">
           <div class="leftImg">
             <img
-              :src="item.hotelImg ? item.hotelImg : `http://hbimg.b0.upaiyun.com/bdaca9a07e1a8947c00c2f826ebf848750927aa24963-cATwbg_fw658`"
+              :src="
+                item.hotelImg
+                  ? item.hotelImg
+                  : `http://hbimg.b0.upaiyun.com/bdaca9a07e1a8947c00c2f826ebf848750927aa24963-cATwbg_fw658`
+              "
               alt
             />
           </div>
           <div class="rightText">
-            <p class="hotelName">{{item.nameChn}}</p>
-            <p class="hotelXing">{{item.levelName}}</p>
-            <p class="hotelHao">{{item.adress}}</p>
-            <p class="hotelAdr">{{item.cityName}}</p>
+            <p class="hotelName">{{ item.nameChn }}</p>
+            <p class="hotelXing">{{ item.levelName }}</p>
+            <p class="hotelHao">{{ item.adress }}</p>
+            <p class="hotelAdr">{{ item.cityName }}</p>
           </div>
         </div>
       </van-cell>
@@ -65,7 +78,7 @@
 </template>
 
 <script>
-import SearchBar from "../components/searchBar";
+import SearchBar from '../components/searchBar'
 export default {
   components: {
     SearchBar
@@ -74,71 +87,77 @@ export default {
     return {
       loading: false,
       finished: false,
-      activeName: "a",
+      activeName: 'a',
       showStart: false,
-      radio: "5",
+      radio: '5',
       searchHotelList: [],
       page: 1
-    };
+    }
   },
   created() {
-    this.getSearchHotel();
+    this.getSearchHotel()
   },
 
   methods: {
     getSearchHotel() {
       this.$axios({
-        method: "post",
+        method: 'post',
         params: {
-          nameChn: localStorage.getItem("hotelName")
-          // nameChn: decodeURI(localStorage.getItem("hotelName"))
-          // city: JSON.stringify(localStorage.getItem("cityName"))
+          nameChn: localStorage.getItem('searchHotelName')
+          // city: localStorage.getItem("cityName")
         },
         url:
-          "http://woxiangqu-tour.cn/mobile/amanager/info/hotel/ajaxHotelList.htm"
+          'http://woxiangqu-tour.cn/mobile/amanager/info/hotel/ajaxHotelList.htm'
       }).then(data => {
         // console.log(data);
-        this.searchHotelList = data.data.hotels;
-        this.loading = false;
-      });
+        this.searchHotelList = data.data.hotels
+        this.loading = false
+      })
     },
 
     onLoad() {
       // 异步更新数据;
       setTimeout(() => {
         this.$axios({
-          method: "post",
+          method: 'post',
           params: {
             page: this.page++,
-            limit: 10
+            limit: 10,
+            nameChn: localStorage.getItem('hotelName')
           },
           url:
-            "http://woxiangqu-tour.cn/mobile/amanager/info/hotel/ajaxHotelList.htm"
+            'http://woxiangqu-tour.cn/mobile/amanager/info/hotel/ajaxHotelList.htm'
         }).then(item => {
           if (item.status == 200) {
-            console.log(item);
+            console.log(item)
             // 将获取到的数据保存到hotelList
-            this.searchHotelList = [...this.searchHotelList, ...item.data.hotels];
+            this.searchHotelList = [
+              ...this.searchHotelList,
+              ...item.data.hotels
+            ]
             // 加载状态结束
-            this.loading = false;
+            this.loading = false
             // 数据全部加载完成
             if (this.searchHotelList.length >= item.data.page.totalCount) {
-              this.finished = true;
+              this.finished = true
             }
           }
-        });
-      }, 1000);
+        })
+      }, 1000)
     },
 
     starLevel() {
-      this.showStart = true;
+      this.showStart = true
     },
 
-    toDetail() {
-      this.$router.push("./Detail");
+    toDetail(item) {
+      sessionStorage.setItem('hotelName', item.nameChn)
+      sessionStorage.setItem('hotelAdr', item.adress)
+      sessionStorage.setItem('hotelPhone', item.phone)
+      this.$router.push('./Detail')
     }
   }
-};
+}
 </script>
 
 <style lang="less" scoped>
