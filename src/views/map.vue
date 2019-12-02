@@ -30,7 +30,7 @@ export default {
         var cityName = result.name;
         map.setCenter(cityName);
         console.log("当前定位城市:" + cityName);
-        al
+        // al
       }
       var myCity = new BMap.LocalCity();
       myCity.get(myFun);

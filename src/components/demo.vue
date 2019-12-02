@@ -84,6 +84,9 @@ export default {
     // 输入框绑定的值
     showDouble() {
       if (this.startDouble && this.endDouble) {
+        // 存到本地
+        sessionStorage.setItem("checkInTime", this.startDouble);
+        sessionStorage.setItem("checkOutTime", this.endDouble);
         return `入住:` + this.startDouble + ` 至  ` + this.endDouble + `离店`;
       } else if (this.startDouble && !this.endDouble) {
         return this.startDouble;
@@ -99,6 +102,10 @@ export default {
   components: {
     date
   },
+  // created() {
+  //   sessionStorage.setItem("checkInTime", this.startDouble);
+  //   sessionStorage.setItem("checkOutTime", this.endDouble);
+  // },
   methods: {
     changeDateSingle(start, end) {
       this.startSingle = start;
@@ -137,7 +144,7 @@ export default {
 
 <style lang="less" scoped>
 @appSize: 1/37.52rem;
-.demo-slecetDate{
+.demo-slecetDate {
   background-color: #fff;
 }
 .mu-text-field {

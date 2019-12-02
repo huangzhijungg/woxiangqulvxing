@@ -17,15 +17,15 @@
       <div class="content">
         <div class="intro">
           <p>酒店简介</p>
-          <span>硬件是直观看到的酒店位置，酒店设计，酒店房间设施，酒店配套（比如健身房，SPA，什么样的餐厅有几个，儿童俱乐部等）</span>
+          <span>{{hotelDetail ? hotelDetail : `暂无酒店详情`}}</span>
         </div>
         <div class="facility">
           <p>酒店设施</p>
-          <span>软件就是酒店服务，从接机开始到行李员，前台服务，客房服务，餐厅人员的态度和你遇到问题时他们的应对态度和处理方式甚至后续跟进等。</span>
+          <span>{{`暂无信息`}}</span>
         </div>
         <div class="hint">
           <p>特别提示</p>
-          <span>环境优美，地理位置好，交通方便，房间舒适卫生，服务人员很热情，乐于提供各种帮助，早餐丰富。设施很人性化，网络高速信号好，窗外风景好。有特别的开床服务，房间小摆件的设计也很有特色。性价比不错</span>
+          <span>{{`暂无信息`}}</span>
         </div>
         <div class="phone">
           <p>联系方式</p>
@@ -56,7 +56,7 @@
       </div>
 
       <div class="special">
-        <span class="tese">酒店特色：豪华酒店，设有全套 SPA 服务，可直达购物中心，邻近华强北</span>
+        <span class="tese">酒店详情：{{hotelDetail ? hotelDetail : `暂无酒店详情`}}</span>
         <span @click="showDetail" class="detailColor">
           详情
           <van-icon name="arrow" class="rightarrow" />
@@ -68,17 +68,17 @@
     <van-collapse v-model="activeName" accordion>
       <!-- 存放左侧图片 icon -->
       <van-collapse-item
-        title="高级双床房"
         value="日均 ￥536  起"
-        v-for="(item, index) in 8"
+        v-for="(item, index) in roomInfo"
         :key="index"
+        :title="item.optionName"
         size="large"
         :name="index"
       >
-        <div class="content" v-for="(item, index) in 3" :key="index">
+        <div class="content" v-for="(item, index) in roomInfoItem" :key="index">
           <!-- <img src="http://img2.imgtn.bdimg.com/it/u=1165461476,304980642&fm=15&gp=0.jpg" alt=""> -->
           <div class="left">
-            <p>不含早 双床</p>
+            <p>{{item.ratetypeName}}</p>
             <p>无预定条款</p>
             <p>不可取消</p>
             <p class="check">待查</p>
@@ -86,9 +86,9 @@
           <div class="right">
             <p>
               日均
-              <span>￥536</span>
+              <span>￥{{item.totalSalePrice}}</span>
             </p>
-            <p>总价￥536</p>
+            <p>总价￥{{item.totalSalePrice}}</p>
             <van-button type="primary" size="mini" @click="reserve">预定</van-button>
           </div>
         </div>
@@ -115,7 +115,27 @@ export default {
       hotelName:sessionStorage.getItem('hotelName'),
       hotelAddress:sessionStorage.getItem('hotelAdr'),
       hotelPhone:sessionStorage.getItem('hotelPhone'),
+      hotelDetail:sessionStorage.getItem('hotelDetail'),
+      roomInfo:[],
+      roomInfoItem:[]
     };
+  },
+  created() {
+    this.$axios({
+      method:'post',
+       params:{
+        city:parseInt(sessionStorage.getItem('hotelCity')),
+        hotelId:parseInt(sessionStorage.getItem('hotelId')),
+        indate:sessionStorage.getItem('checkInTime'),
+        outdate:sessionStorage.getItem('checkOutTime')
+      },
+      url:'http://192.168.1.124:8080/mobile/amanager/info/hotel/ajaxRoomtypeList.htm',
+      // url:'http://woxiangqu-tour.cn/mobile/amanager/info/hotel/ajaxRoomtypeList.htm'
+    }).then(res=>{
+      console.log(res);
+      this.roomInfo = res.data.bedTypeOptions
+      this.roomInfoItem = res.data.roomtypes
+    })
   },
   methods: {
     toMap() {
@@ -129,7 +149,6 @@ export default {
       this.show = !this.show;
     },
     reserve() {
-      // console.log('预定成功')
       this.$router.push("./reservation");
     }
   }

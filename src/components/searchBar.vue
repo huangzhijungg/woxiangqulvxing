@@ -34,8 +34,8 @@ export default {
 
   data() {
     return {
-      value: '',
-      isShow: false,
+      value: "",
+      isShow: false
     };
   },
   methods: {
@@ -46,8 +46,8 @@ export default {
           message: "请输入要搜索的内容",
           duration: 1000
         });
-      }else{
-
+      } else {
+         this.getSearchHotel()
       }
     },
     onCancel() {

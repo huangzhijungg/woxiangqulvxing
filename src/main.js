@@ -12,9 +12,6 @@ Vue.prototype.$axios = Axios;
 
 import 'vant/lib/index.css';
 
-// import './assets/js/hotelMobile'
-// import './assets/js/allCity'
-
 import { Swipe, SwipeItem } from 'vant';
 Vue.use(Swipe).use(SwipeItem);
 
@@ -100,8 +97,8 @@ Vue.use(Area);
 import { Tab, Tabs } from 'vant';
 Vue.use(Tab).use(Tabs);
 
-// import { DropdownMenu, DropdownItem } from 'vant';
-// Vue.use(DropdownMenu).use(DropdownItem);
+import { Grid, GridItem } from 'vant';
+Vue.use(Grid).use(GridItem);
 
 Vue.config.productionTip = false
 new Vue({
