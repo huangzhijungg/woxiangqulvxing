@@ -68,17 +68,18 @@
     <van-collapse v-model="activeName" accordion>
       <!-- 存放左侧图片 icon -->
       <van-collapse-item
-        value="日均 ￥536  起"
-        v-for="(item, index) in roomInfo"
+        v-for="(item, index) in roomTypesItem"
         :key="index"
-        :title="item.optionName"
+        :title="item.nameChn"
+        :value="`日均 ￥` +  item.priceCityMapList[index].totalSalePrice || '' +`起`"
         size="large"
         :name="index"
       >
-        <div class="content" v-for="(item, index) in roomInfoItem" :key="index">
+        <div class="content" :key="index">
+          <!-- v-for="(data, index) in roomTypesItem" -->
           <!-- <img src="http://img2.imgtn.bdimg.com/it/u=1165461476,304980642&fm=15&gp=0.jpg" alt=""> -->
           <div class="left">
-            <p>{{item.ratetypeName}}</p>
+            <p>{{item.priceCityMapList[index].ratetypeName || ''}}</p>
             <p>无预定条款</p>
             <p>不可取消</p>
             <p class="check">待查</p>
@@ -86,13 +87,14 @@
           <div class="right">
             <p>
               日均
-              <span>￥{{item.totalSalePrice}}</span>
+              <span>￥{{item.priceCityMapList[index].totalSalePrice || ''}}</span>
             </p>
-            <p>总价￥{{item.totalSalePrice}}</p>
+            <p>总价￥{{item.priceCityMapList[index].totalSalePrice || ''}}</p>
             <van-button type="primary" size="mini" @click="reserve">预定</van-button>
           </div>
         </div>
       </van-collapse-item>
+      <van-divider :style="{ color: '#FF9933', borderColor: '#FF9933', padding: '0 16px' }">暂无更多房型信息</van-divider>
     </van-collapse>
   </div>
 </template>
@@ -112,30 +114,33 @@ export default {
       ],
       show: false,
       activeName: "1",
-      hotelName:sessionStorage.getItem('hotelName'),
-      hotelAddress:sessionStorage.getItem('hotelAdr'),
-      hotelPhone:sessionStorage.getItem('hotelPhone'),
-      hotelDetail:sessionStorage.getItem('hotelDetail'),
-      roomInfo:[],
-      roomInfoItem:[]
+      hotelName: sessionStorage.getItem("hotelName"),
+      hotelAddress: sessionStorage.getItem("hotelAdr"),
+      hotelPhone: sessionStorage.getItem("hotelPhone"),
+      hotelDetail: sessionStorage.getItem("hotelDetail"),
+      roomTypesItem: [] || "",
+      roomInfo: []
     };
   },
   created() {
     this.$axios({
-      method:'post',
-       params:{
-        city:parseInt(sessionStorage.getItem('hotelCity')),
-        hotelId:parseInt(sessionStorage.getItem('hotelId')),
-        indate:sessionStorage.getItem('checkInTime'),
-        outdate:sessionStorage.getItem('checkOutTime')
+      method: "post",
+      params: {
+        city: parseInt(sessionStorage.getItem("hotelCity")),
+        hotelId: parseInt(sessionStorage.getItem("hotelId")),
+        indate: sessionStorage.getItem("checkInTime"),
+        outdate: sessionStorage.getItem("checkOutTime")
       },
-      url:'http://192.168.1.124:8080/mobile/amanager/info/hotel/ajaxRoomtypeList.htm',
+      url:
+        "http://192.168.1.124:8080/mobile/amanager/info/hotel/ajaxRoomtypeList.htm"
       // url:'http://woxiangqu-tour.cn/mobile/amanager/info/hotel/ajaxRoomtypeList.htm'
-    }).then(res=>{
+    }).then(res => {
       console.log(res);
-      this.roomInfo = res.data.bedTypeOptions
-      this.roomInfoItem = res.data.roomtypes
-    })
+      if (res.data.roomtypes != "") {
+        this.roomTypesItem = res.data.roomtypes;
+        // sessionStorage.setItem('breahfast',res.data.roomtypes.priceCityMapList[index].ratetypeName || '')
+      }
+    });
   },
   methods: {
     toMap() {
@@ -149,6 +154,7 @@ export default {
       this.show = !this.show;
     },
     reserve() {
+
       this.$router.push("./reservation");
     }
   }
@@ -219,7 +225,7 @@ export default {
       text-overflow: ellipsis;
       white-space: nowrap;
     }
-    .detailColor{
+    .detailColor {
       color: orange;
     }
   }
@@ -234,7 +240,7 @@ export default {
   }
 }
 .van-collapse {
-  background-color:#fff;
+  background-color: #fff;
   padding: 2 * @appSize;
   box-sizing: border-box;
   // van-cell van-cell--clickable van-cell--large
@@ -256,7 +262,7 @@ export default {
         width: 110 * @appSize;
         height: 60 * @appSize;
 
-        .van-image__img{
+        .van-image__img {
           margin-top: -18 * @appSize;
         }
       }

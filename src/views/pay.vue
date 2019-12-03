@@ -5,9 +5,9 @@
     <div class="pay-orderInfo">
       <!-- <p class="pay-title">订单信息</p> -->
       <div class="pay-info">
-        <p>香港君怡酒店</p>
-        <p>入离：11月20日-11月21日</p>
-        <p>标准客房 | 不含早</p>
+        <p>{{hotelName}}</p>
+        <p>入离：{{time}}</p>
+        <p>豪华套房 | 不含早</p>
         <p>补充说明：</p>
         <van-divider :style="{ color: '#1989fa', borderColor: 'orange', padding: '0 1px' }"></van-divider>
         <p>
@@ -55,7 +55,9 @@ export default {
   },
   data() {
     return {
-      titelData: "订单支付"
+      titelData: "订单支付",
+      hotelName:sessionStorage.getItem('hotelName'),
+      time:sessionStorage.getItem('checkInTime') +  `至` + sessionStorage.getItem('checkOutTime')
     };
   },
   methods: {

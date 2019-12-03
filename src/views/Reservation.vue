@@ -2,9 +2,9 @@
   <div class="reservation">
     <topBar :sendTitle="titelData" />
     <div class="orderInfo">
-      <P class="hotelName">维也纳国际酒店</P>
-      <P class="liveTime">时间</P>
-      <P class="info">高级双床房 | 不含早</P>
+      <P class="hotelName">{{hotelName}}</P>
+      <P class="liveTime">{{time}}</P>
+      <P class="info">豪华套房 | 不含早</P>
       <van-divider :style="{ color: '#1989fa', borderColor: 'orange', padding: '0 16px' }"></van-divider>
       <van-notice-bar text="即定即保，订单一经确定，不可取消·更改" left-icon="label-o" />
     </div>
@@ -67,7 +67,7 @@
       </div>
     </div>
     <div class="money">
-      <span>订单总额 ： ￥ 248</span>
+      <span>订单总额 ： ￥ 836</span>
       <button @click="nextTo">提交订单</button>
     </div>
   </div>
@@ -100,14 +100,14 @@ export default {
       name1: 1,
       name2: 2,
       name3: 3,
-      name4: 4
+      name4: 4,
+      hotelName:sessionStorage.getItem('hotelName'),
+      time:sessionStorage.getItem('checkInTime') +  `至` + sessionStorage.getItem('checkOutTime')
     };
   },
   methods: {
     // 选择房间数
     checkRoom(name, radio) {
-      // console.log(this.radio);
-      // console.log(name);
       if (name == 2) {
         this.showInput2 = true;
         this.showInput3 = false;

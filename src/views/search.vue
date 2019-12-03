@@ -121,9 +121,8 @@ export default {
           indate: sessionStorage.getItem("checkInTime"),
           outdate: sessionStorage.getItem("checkOutTime")
         },
-        // url:"http://192.168.1.124:8080/mobile/amanager/info/hotel/ajaxHotelList.htm"
-        url:
-          "http://woxiangqu-tour.cn/mobile/amanager/info/hotel/ajaxHotelList.htm"
+        url:"http://192.168.1.124:8080/mobile/amanager/info/hotel/ajaxHotelList.htm"
+        // url:"http://woxiangqu-tour.cn/mobile/amanager/info/hotel/ajaxHotelList.htm"
       }).then(data => {
         this.searchHotelList = data.data.hotels;
         this.loading = false;
@@ -140,15 +139,13 @@ export default {
     },
     onCancel() {
       console.log("取消");
+      this.isShow = false;
     },
     goBackLast() {
       this.$router.back();
     },
     focus() {
       this.isShow = true;
-    },
-    onCancel() {
-      this.isShow = false;
     },
 
     onLoad() {
@@ -162,9 +159,8 @@ export default {
             nameChn: localStorage.getItem("searchHotelName"),
             cityName: localStorage.getItem("searchCityName")
           },
-          // url: "http://192.168.1.124:8080/mobile/amanager/info/hotel/ajaxHotelList.htm"
-          url:
-            "http://woxiangqu-tour.cn/mobile/amanager/info/hotel/ajaxHotelList.htm"
+          url: "http://192.168.1.124:8080/mobile/amanager/info/hotel/ajaxHotelList.htm"
+          // url:"http://woxiangqu-tour.cn/mobile/amanager/info/hotel/ajaxHotelList.htm"
         }).then(item => {
           if (item.status == 200) {
             console.log(item);
